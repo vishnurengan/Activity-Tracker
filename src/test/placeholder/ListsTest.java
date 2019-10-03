@@ -2,8 +2,12 @@ package placeholder;
 
 import model.Item;
 import model.Lists;
+import model.Loadable;
+import model.Saveable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -105,4 +109,36 @@ public class ListsTest {
         assertFalse(lists.masterListStatus("Buy Kiwis"));
 
     }
+    @Test
+    public void testLoadData() throws IOException {
+        lists.loadData("loadTestFile.txt");
+        assertTrue(lists.masterListContains("Buy Apples"));
+        assertTrue(lists.masterListContains("Buy Oranges"));
+        assertTrue(lists.masterListStatus("Buy Apples"));
+        assertFalse(lists.masterListStatus("Buy Oranges"));
+        assertTrue(lists.crossedOffListContains("Buy Apples"));
+        assertFalse(lists.crossedOffListContains("Buy Oranges"));
+    }
+
+    @Test
+    public void testSaveData() throws IOException {
+        lists.addItem("Buy Kiwis");
+        lists.addItem("Buy Grapes");
+        lists.crossOff(1); // Crossing of Buy Kiwis
+
+        saveDataTester(lists);
+
+        lists.loadData("saveDataTestFile.txt");
+        assertTrue(lists.masterListContains("Buy Kiwis"));
+        assertTrue(lists.masterListContains("Buy Grapes"));
+        assertFalse(lists.masterListContains("Buy Apples"));
+        assertTrue(lists.masterListStatus("Buy Kiwis"));
+        assertFalse(lists.masterListStatus("Buy Grapes"));
+
+    }
+
+    public void saveDataTester(Saveable saveable) throws IOException {
+        saveable.saveData("saveDataTestFile.txt");
+    }
+
 }

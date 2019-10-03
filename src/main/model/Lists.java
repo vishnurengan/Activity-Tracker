@@ -1,10 +1,15 @@
 package model;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 // Using scanner as provided in the LittleLoggingCalculator
 
-public class Lists {
+public class Lists implements Loadable, Saveable {
     private ArrayList<Item> masterList;
     private ArrayList<Item> crossedOff;
     private Scanner scanner;
@@ -22,7 +27,7 @@ public class Lists {
     // If selection is 2, removes items from list
     // If selection is 3, displays all items and status
     // If selection is 4, program quits
-    public void run() {
+    public void run() throws IOException {
         while (true) {
             int selection = this.userSelection();
             if (selection == 1) {
@@ -33,24 +38,63 @@ public class Lists {
             } else if (selection == 3) {
                 this.masterListPrinter();
             } else if (selection == 4) {
+                this.fileNameEntryLD();
+            } else if (selection == 5) {
+                this.fileNameEntrySD();
                 break;
             }
         }
-
     }
+
+    private void fileNameEntryLD() throws IOException {
+        System.out.println("Please enter the filename:");
+        scanner.nextLine();
+        String filename = scanner.nextLine();
+        loadData(filename);
+    }
+
+    private void fileNameEntrySD() throws IOException {
+        System.out.println("Please enter the filename:");
+        scanner.nextLine();
+        String filename = scanner.nextLine();
+        saveData(filename);
+    }
+
+    public void loadData(String filename) throws IOException {
+        List<String> lines = Files.readAllLines(Paths.get("./data/" + filename));
+        for (int i = 0; i < lines.size(); i = i + 2) {
+            Item task = new Item(lines.get(i));
+            if (lines.get(i + 1).equals("true")) {
+                task.setStatus(true);
+                this.crossedOff.add(task);
+            }
+            masterList.add(task);
+        }
+    }
+
+
+    public void saveData(String filename) throws IOException {
+        PrintWriter writer = new PrintWriter("./data/" + filename,"UTF-8");
+        for (Item task: masterList) {
+            writer.println(task.getName());
+            writer.println(task.getStatus());
+        }
+        writer.close();
+    }
+
 
     // REQUIRES: User must enter 1,2,3, or 4
     // EFFECTS: Returns user selection
     private int userSelection() {
-        System.out.println("Please enter what you would like to do: "
-                + "[1] add a to do list item [2] cross off an item [3] show all items [4] quit the program.");
+        System.out.println("Please enter what you would like to do: [1] add a to do list item "
+                + "[2] cross off an item [3] show all items [4] load data [5] save and quit.");
         int selection = scanner.nextInt();
         System.out.println("You selected: " + selection);
         return selection;
     }
 
     // REQUIRES: number inputted must be in displayed list
-    // MODIFIES: this, Item
+    // MODIFIES: this, task
     // EFFECTS: finds Item to cross off, toggles its status, and copies it to crossedOff list
     public void crossOff(int number) {
         int counter = 0;
@@ -66,7 +110,7 @@ public class Lists {
         }
     }
 
-    // MODIFIES: this,Item
+    // MODIFIES: this, task
     // EFFECTS: user inputs new item. New Item is constructed and added to masterlist.
     private void enterItem() {
         scanner.nextLine();
@@ -75,7 +119,7 @@ public class Lists {
         this.addItem(item);
     }
 
-    // MODIFIES: this, Item
+    // MODIFIES: this, task
     // EFFECTS: New Item is constructed and added to masterList.
     public void addItem(String task) {
         Item newTask = new Item(task);
@@ -116,7 +160,7 @@ public class Lists {
     }
 
     // REQUIRES: selection inputted by user must be on displayed toDoList
-    // MODIFIES: this, Item
+    // MODIFIES: this, task
     // EFFECTS: asks user which item should be crossed off and crosses it off
     private void removeItem() {
         this.toDoListPrinter();
