@@ -1,9 +1,6 @@
 package placeholder;
 
-import model.Item;
-import model.Lists;
-import model.Loadable;
-import model.Saveable;
+import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,28 +20,48 @@ public class ListsTest {
 
     @Test
     public void testMasterListContainsOne() {
-       lists.addItem("Buy Apples");
-       assertTrue(lists.masterListContains("Buy Apples"));
-       assertFalse(lists.masterListContains("Buy Kiwis"));
+        Item task = new PersonalItem("Buy Apples");
+        lists.addItem(task);
+        assertTrue(lists.masterListContains("Buy Apples"));
+        assertFalse(lists.masterListContains("Buy Kiwis"));
 
     }
 
     @Test
     public void testMasterListContainsMany() {
-        lists.addItem("Buy Apples");
-        lists.addItem("Buy Kiwis");
-        lists.addItem("Buy Bananas");
+
+        Item task1 = new PersonalItem("Buy Apples");
+        lists.addItem(task1);
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task2);
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
+
+        lists.addItem(task1);
+        lists.addItem(task2);
+        lists.addItem(task3);
 
         assertTrue(lists.masterListContains("Buy Apples"));
         assertTrue(lists.masterListContains("Buy Kiwis"));
-        assertTrue(lists.masterListContains("Buy Bananas"));
+        assertTrue(lists.masterListContains("Buy Supplies"));
     }
 
     @Test
     public void testCrossedOffListContainsOnce() {
-        lists.addItem("Buy Apples");
-        lists.addItem("Buy Kiwis");
-        lists.addItem("Buy Bananas");
+        Item task1 = new PersonalItem("Buy Apples");
+        lists.addItem(task1);
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task2);
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
+
+        lists.addItem(task1);
+        lists.addItem(task2);
+        lists.addItem(task3);
 
         lists.crossOff(1);
         assertTrue(lists.crossedOffListContains("Buy Apples"));
@@ -52,58 +69,83 @@ public class ListsTest {
 
     @Test
     public void testCrossedOffListContainsMultiple() {
-        lists.addItem("Buy Apples"); // User Selection 1
-        lists.addItem("Buy Kiwis"); // User Selection 2
-        lists.addItem("Buy Bananas"); // User Selection 3
+        Item task1 = new PersonalItem("Buy Apples");
+        lists.addItem(task1);
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task2);
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
 
         lists.crossOff(1); // Apples removed off toDoList
         lists.crossOff(1); // Buy Kiwis is now user selection 1, Buy Bananas is user selection 2
         assertTrue(lists.crossedOffListContains("Buy Apples"));
         assertTrue(lists.crossedOffListContains("Buy Kiwis"));
-        assertFalse(lists.crossedOffListContains("Buy Bananas"));
+        assertFalse(lists.crossedOffListContains("Buy Supplies"));
     }
 
     @Test
     public void testMasterListStatus() {
-        lists.addItem("Buy Apples"); // User Selection 1
-        lists.addItem("Buy Kiwis"); // User Selection 2
-        lists.addItem("Buy Bananas"); // User Selection 3
+        Item task1 = new PersonalItem("Buy Apples");
+        lists.addItem(task1);
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task2);
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
 
         lists.crossOff(1); // Apples removed off toDoList
         lists.crossOff(2); // Buy Kiwis is now user selection 1, Buy Bananas is user selection 2
 
         assertTrue(lists.masterListStatus("Buy Apples"));
         assertFalse(lists.masterListStatus("Buy Kiwis"));
-        assertTrue(lists.masterListStatus("Buy Bananas"));
+        assertTrue(lists.masterListStatus("Buy Supplies"));
+
+        assertFalse(lists.masterListStatus("Buy Cherries"));
     }
 
     @Test
     public void testAddOneItem() {
-        lists.addItem("Buy Apples");
-        assertTrue(lists.masterListContains("Buy Apples"));
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
+
+        assertTrue(lists.masterListContains("Buy Supplies"));
     }
 
     @Test
     public void testAddMultipleItems() {
-        lists.addItem("Buy Bananas");
-        lists.addItem("Buy Kiwis");
-        lists.addItem("Buy Cherries");
+        Item task1 = new PersonalItem("Buy Apples");
+        lists.addItem(task1);
 
-        assertTrue(lists.masterListContains("Buy Bananas"));
+        Item task2 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task2);
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
+
+
+        assertTrue(lists.masterListContains("Buy Apples"));
         assertTrue(lists.masterListContains("Buy Kiwis"));
-        assertTrue(lists.masterListContains("Buy Cherries"));
-        assertFalse(lists.masterListContains("Buy Apples"));
+        assertTrue(lists.masterListContains("Buy Supplies"));
+        assertFalse(lists.masterListContains("Buy Cherries"));
     }
 
     @Test
     public void testCrossOff() {
-        lists.addItem("Buy Bananas");
-        lists.addItem("Buy Kiwis");
-        lists.addItem("Buy Cherries");
+        Item task1 = new PersonalItem("Buy Apples");
+        lists.addItem(task1);
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task2);
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
 
         lists.crossOff(1);
-        assertTrue(lists.crossedOffListContains("Buy Bananas"));
-        assertTrue(lists.masterListStatus("Buy Bananas"));
+        assertTrue(lists.crossedOffListContains("Buy Apples"));
+        assertTrue(lists.masterListStatus("Buy Apples"));
 
         assertFalse(lists.crossedOffListContains("Buy Kiwis"));
         assertFalse(lists.masterListStatus("Buy Kiwis"));
@@ -113,17 +155,30 @@ public class ListsTest {
     public void testLoadData() throws IOException {
         lists.loadData("loadTestFile.txt");
         assertTrue(lists.masterListContains("Buy Apples"));
-        assertTrue(lists.masterListContains("Buy Oranges"));
+        assertTrue(lists.masterListContains("Study"));
+        assertTrue(lists.masterListContains("Go to Gym"));
+        assertTrue(lists.masterListContains("Buy Supplies"));
+
         assertTrue(lists.masterListStatus("Buy Apples"));
-        assertFalse(lists.masterListStatus("Buy Oranges"));
+        assertFalse(lists.masterListStatus("Go to Gym"));
+        assertTrue(lists.masterListStatus("Buy Supplies"));
+        assertFalse(lists.masterListStatus("Study"));
+
         assertTrue(lists.crossedOffListContains("Buy Apples"));
-        assertFalse(lists.crossedOffListContains("Buy Oranges"));
+        assertFalse(lists.crossedOffListContains("Go to Gym"));
     }
 
     @Test
     public void testSaveData() throws IOException {
-        lists.addItem("Buy Kiwis");
-        lists.addItem("Buy Grapes");
+        Item task1 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task1);
+
+        Item task2 = new PersonalItem("Buy Grapes");
+        lists.addItem(task2);
+
+
+        lists.addItem(task1);
+        lists.addItem(task2);
         lists.crossOff(1); // Crossing of Buy Kiwis
 
         saveDataTester(lists);

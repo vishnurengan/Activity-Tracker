@@ -46,6 +46,7 @@ public class Lists implements Loadable, Saveable {
         }
     }
 
+    // EFFECTS: used chooses filename
     private void fileNameEntryLD() throws IOException {
         System.out.println("Please enter the filename:");
         scanner.nextLine();
@@ -53,6 +54,7 @@ public class Lists implements Loadable, Saveable {
         loadData(filename);
     }
 
+    // EFFECTS: used chooses filename
     private void fileNameEntrySD() throws IOException {
         System.out.println("Please enter the filename:");
         scanner.nextLine();
@@ -60,24 +62,35 @@ public class Lists implements Loadable, Saveable {
         saveData(filename);
     }
 
+    // EFFECTS: data is loaded from file
     public void loadData(String filename) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get("./data/" + filename));
-        for (int i = 0; i < lines.size(); i = i + 2) {
-            Item task = new Item(lines.get(i));
-            if (lines.get(i + 1).equals("true")) {
+        for (int i = 0; i < lines.size(); i = i + 3) {
+            Item task;
+            if (lines.get(i + 1).equals("true") && lines.get(i + 2).equals("School Task")) {
+                task = new SchoolItem(lines.get(i));
                 task.setStatus(true);
                 this.crossedOff.add(task);
+            } else if (lines.get(i + 1).equals("false") && lines.get(i + 2).equals("School Task")) {
+                task = new SchoolItem(lines.get(i));
+            } else if (lines.get(i + 1).equals("true") && lines.get(i + 2).equals("Personal Task")) {
+                task = new PersonalItem(lines.get(i));
+                task.setStatus(true);
+                this.crossedOff.add(task);
+            } else {
+                task = new PersonalItem(lines.get(i));
             }
             masterList.add(task);
         }
     }
 
-
+    // EFFECTS: masterlist is saved into file
     public void saveData(String filename) throws IOException {
         PrintWriter writer = new PrintWriter("./data/" + filename,"UTF-8");
         for (Item task: masterList) {
             writer.println(task.getName());
             writer.println(task.getStatus());
+            writer.println(task.getType());
         }
         writer.close();
     }
@@ -114,16 +127,29 @@ public class Lists implements Loadable, Saveable {
     // EFFECTS: user inputs new item. New Item is constructed and added to masterlist.
     private void enterItem() {
         scanner.nextLine();
-        System.out.println("Enter the item text");
-        String item = scanner.nextLine();
-        this.addItem(item);
+        System.out.println("What would you like to enter: [1] Personal Task [2] School Task?");
+        int selection = scanner.nextInt();
+        System.out.println("You selected: " + selection);
+        if (selection == 1) {
+            scanner.nextLine();
+            System.out.println("Please enter your personal task.");
+            String item = scanner.nextLine();
+            Item task = new PersonalItem(item);
+            this.addItem(task);
+        } else if (selection == 2) {
+            System.out.println("Please enter your school task.");
+            scanner.nextLine();
+            String item = scanner.nextLine();
+            Item task = new SchoolItem(item);
+            this.addItem(task);
+        }
+
     }
 
     // MODIFIES: this, task
     // EFFECTS: New Item is constructed and added to masterList.
-    public void addItem(String task) {
-        Item newTask = new Item(task);
-        this.masterList.add(newTask);
+    public void addItem(Item task) {
+        this.masterList.add(task);
     }
 
     // EFFECTS: Returns true is masterList contains task and false otherwise
@@ -197,9 +223,11 @@ public class Lists implements Loadable, Saveable {
         for (int i = 0; i < this.masterList.size(); i++) {
             Item task = masterList.get(i);
             if (task.getStatus() == false) {
-                System.out.printf("%d. %-20s %-30s%n", i + 1, task.getName(), "Status: Not Complete");
+                System.out.printf("%d. %-20s %-30s %-20s%n", i + 1, task.getName(),
+                            "Status: Not Complete", "Type: " + task.getType());
             } else if (task.getStatus() == true) {
-                System.out.printf("%d. %-20s %-30s%n", i + 1, task.getName(), "Status: Complete");
+                System.out.printf("%d. %-20s %-30s %-20s%n", i + 1, task.getName(),
+                        "Status: Complete", "Type: " + task.getType());
             }
         }
     }

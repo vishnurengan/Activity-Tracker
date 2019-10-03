@@ -1,0 +1,12 @@
+Buy Groceries
+false
+Personal Task
+Go to the Gym
+true
+Personal Task
+Finish Homework
+true
+School Task
+Study for Exam
+false
+School Task

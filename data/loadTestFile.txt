@@ -1,4 +1,15 @@
 Buy Apples
 true
-Buy Oranges
+Personal Task
+Study
 false
+School Task
+Buy Oranges
+true
+Personal Task
+Go to Gym
+false
+Personal Task
+Buy Supplies
+true
+School Task
