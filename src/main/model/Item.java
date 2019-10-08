@@ -1,12 +1,34 @@
 package model;
 
-public interface Item {
+public abstract class Item {
+    protected String name;
+    protected boolean isComplete;
+    protected String type;
 
-    void setStatus(boolean status);
+    public Item(String itemName) {
+        name = itemName;
+        isComplete = false;
+        type = "";
+    }
 
-    boolean getStatus();
 
-    String getName();
+    public void setStatus(boolean status) {
+        if (status == true) {
+            isComplete = true;
+        } else {
+            isComplete = false;
+        }
+    }
 
-    String getType();
+    public boolean getStatus() {
+        return isComplete;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

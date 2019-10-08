@@ -10,3 +10,12 @@ School Task
 Study for Exam
 false
 School Task
+Buy Pencils
+true
+School Task
+Wash Clothes
+false
+Personal Task
+Review Notes
+true
+School Task

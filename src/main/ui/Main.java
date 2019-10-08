@@ -1,4 +1,4 @@
-package placeholder;
+package ui;
 
 import model.Lists;
 
