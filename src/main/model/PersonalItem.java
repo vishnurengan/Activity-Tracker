@@ -1,7 +1,5 @@
 package model;
 
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
-
 public class PersonalItem extends Item {
     public PersonalItem(String itemName) {
         super(itemName);

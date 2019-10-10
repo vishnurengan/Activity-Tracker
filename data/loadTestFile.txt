@@ -13,3 +13,9 @@ Personal Task
 Buy Supplies
 true
 School Task
+Set Meeting
+true
+Work Task
+Complete Project
+false
+Work Task

@@ -34,22 +34,24 @@ public class Lists implements Loadable, Saveable {
         List<String> lines = Files.readAllLines(Paths.get("./data/" + filename));
         for (int i = 0; i < lines.size(); i = i + 3) {
             Item task;
-            if (lines.get(i + 1).equals("true") && lines.get(i + 2).equals("School Task")) {
+            if (lines.get(i + 2).equals("School Task")) {
                 task = new SchoolItem(lines.get(i));
-                task.setStatus(true);
-                this.crossedOff.add(task);
-            } else if (lines.get(i + 1).equals("false") && lines.get(i + 2).equals("School Task")) {
-                task = new SchoolItem(lines.get(i));
-            } else if (lines.get(i + 1).equals("true") && lines.get(i + 2).equals("Personal Task")) {
+                task.setStatus(lines.get(i + 1).equals("true"));
+            } else if (lines.get(i + 2).equals("Personal Task")) {
                 task = new PersonalItem(lines.get(i));
-                task.setStatus(true);
-                this.crossedOff.add(task);
+                task.setStatus(lines.get(i + 1).equals("true"));
             } else {
-                task = new PersonalItem(lines.get(i));
+                task = new WorkItem(lines.get(i));
+                task.setStatus(lines.get(i + 1).equals("true"));
             }
             masterList.add(task);
+            if (task.getStatus() == true) {
+                crossedOff.add(task);
+            }
         }
     }
+
+
 
     // EFFECTS: masterlist is saved into file
     public void saveData(String filename) throws IOException {
@@ -77,6 +79,21 @@ public class Lists implements Loadable, Saveable {
                     task.setStatus(true);
                 }
             }
+        }
+    }
+
+    // MODIFIES: this, Item
+    // EFFECTS: creates new Item of specified sub class and adds to masterList
+    public void addItem(String item, int selection) {
+        if (selection == 1) {
+            Item task = new PersonalItem(item);
+            addItem(task);
+        } else if (selection == 2) {
+            Item task = new SchoolItem(item);
+            addItem(task);
+        } else if (selection == 3) {
+            Item task = new WorkItem(item);
+            addItem(task);
         }
     }
 

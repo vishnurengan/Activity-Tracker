@@ -17,8 +17,6 @@ public class ListInterface {
         scanner = new Scanner(System.in);
     }
 
-
-
     // MODIFIES: this, Item
     // EFFECTS: gets user selection.
     // If selection is 1, add items to list
@@ -75,24 +73,32 @@ public class ListInterface {
     // MODIFIES: this, Item
     // EFFECTS: user inputs new item. New Item is constructed and added to masterlist.
     private void enterItem() {
-        scanner.nextLine();
-        System.out.println("What would you like to enter: [1] Personal Task [2] School Task?");
-        int selection = scanner.nextInt();
-        System.out.println("You selected: " + selection);
+        int selection = taskSelection();
+
         if (selection == 1) {
             scanner.nextLine();
-            System.out.println("Please enter your personal task.");
             String item = scanner.nextLine();
-            Item task = new PersonalItem(item);
-            lists.addItem(task);
+            lists.addItem(item,selection);
         } else if (selection == 2) {
-            System.out.println("Please enter your school task.");
             scanner.nextLine();
             String item = scanner.nextLine();
-            Item task = new SchoolItem(item);
-            lists.addItem(task);
+            lists.addItem(item,selection);
+        } else if (selection == 3) {
+            scanner.nextLine();
+            String item = scanner.nextLine();
+            lists.addItem(item,selection);
         }
 
+    }
+
+    // EFFECTS: returns user selection
+    public int taskSelection() {
+        scanner.nextLine();
+        System.out.println("What would you like to enter: [1] Personal Task [2] School Task [3] Work Task ?");
+        int selection = scanner.nextInt();
+        System.out.println("You selected: " + selection);
+        System.out.println("Please enter the task name:");
+        return selection;
     }
 
 

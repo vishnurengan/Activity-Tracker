@@ -201,12 +201,18 @@ public class ListsTest {
         assertTrue(lists.masterListContains("Study"));
         assertTrue(lists.masterListContains("Go to Gym"));
         assertTrue(lists.masterListContains("Buy Supplies"));
+        assertTrue(lists.masterListContains("Set Meeting"));
+        assertTrue(lists.masterListContains("Complete Project"));
 
         assertTrue(lists.masterListStatus("Buy Apples"));
         assertFalse(lists.masterListStatus("Go to Gym"));
         assertTrue(lists.masterListStatus("Buy Supplies"));
         assertFalse(lists.masterListStatus("Study"));
+        assertTrue(lists.masterListStatus("Set Meeting"));
+        assertFalse(lists.masterListStatus("Complete Project"));
 
+
+        assertTrue(lists.crossedOffListContains("Set Meeting"));
         assertTrue(lists.crossedOffListContains("Buy Apples"));
         assertFalse(lists.crossedOffListContains("Go to Gym"));
     }
@@ -237,6 +243,17 @@ public class ListsTest {
 
     public void saveDataTester(Saveable saveable) throws IOException {
         saveable.saveData("saveDataTestFile.txt");
+    }
+
+    @Test
+    public void testAddItem() {
+        lists.addItem("Go to Gym",1);
+        lists.addItem("Study",2);
+        lists.addItem("Complete Project", 3);
+
+        assertTrue(lists.masterListContains("Go to Gym"));
+        assertTrue(lists.masterListContains("Study"));
+        assertTrue(lists.masterListContains("Complete Project"));
     }
 
 }
