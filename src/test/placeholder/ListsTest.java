@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -16,6 +17,48 @@ public class ListsTest {
     @BeforeEach
     public void runBefore() {
         lists = new Lists();
+    }
+
+    @Test
+    public void testGetMasterList() {
+        Item task1 = new PersonalItem("Buy Apples");
+        lists.addItem(task1);
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task2);
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
+
+        ArrayList<Item> listsTest = new ArrayList<>();
+        listsTest.add(task1);
+        listsTest.add(task2);
+        listsTest.add(task3);
+
+        assertEquals(listsTest, lists.getMasterList());
+    }
+
+    @Test
+    public void testGetCrossedOff() {
+        Item task1 = new PersonalItem("Buy Apples");
+        lists.addItem(task1);
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        lists.addItem(task2);
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        lists.addItem(task3);
+
+        lists.crossOff(1);
+        lists.crossOff(1);
+        lists.crossOff(1);
+
+        ArrayList<Item> listsTest = new ArrayList<>();
+        listsTest.add(task1);
+        listsTest.add(task2);
+        listsTest.add(task3);
+
+        assertEquals(listsTest, lists.getCrossedOff());
     }
 
     @Test

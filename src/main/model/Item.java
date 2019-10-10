@@ -31,4 +31,6 @@ public abstract class Item {
     public String getType() {
         return type;
     }
+
+    public abstract void printMessage();
 }

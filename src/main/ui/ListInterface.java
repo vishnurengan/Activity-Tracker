@@ -2,21 +2,22 @@ package ui;
 
 import model.*;
 
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+// Using scanner as provided in the LittleLoggingCalculator
 
-public abstract class UserInterface implements Loadable, Saveable {
-    protected ArrayList<Item> masterList;
-    protected ArrayList<Item> crossedOff;
-    protected Scanner scanner;
+public class ListInterface {
+    private Lists lists;
+    private Scanner scanner;
 
-    // EFFECTS: sets are empty and initializes scanner
-    public UserInterface() {
-        masterList = new ArrayList<>();
-        crossedOff = new ArrayList<>();
+    // EFFECTS: constructs lists and initializes scanner
+    public ListInterface() {
+        lists = new Lists();
         scanner = new Scanner(System.in);
     }
+
+
 
     // MODIFIES: this, Item
     // EFFECTS: gets user selection.
@@ -26,42 +27,39 @@ public abstract class UserInterface implements Loadable, Saveable {
     // If selection is 4, program quits
     public void run() throws IOException {
         while (true) {
-            int selection = this.userSelection();
+            int selection = userSelection();
             if (selection == 1) {
-                this.enterItem();
+                enterItem();
             } else if (selection == 2) {
-                this.removeItem();
-                this.crossedOffPrinter();
+                removeItem();
+                crossedOffPrinter();
             } else if (selection == 3) {
-                this.masterListPrinter();
+                masterListPrinter();
             } else if (selection == 4) {
-                this.fileNameEntryLD();
+                fileNameEntryLD();
             } else if (selection == 5) {
-                this.fileNameEntrySD();
+                fileNameEntrySD();
                 break;
             }
         }
     }
 
-    // EFFECTS: used chooses filename
+    // EFFECTS: user chooses filename
     private void fileNameEntryLD() throws IOException {
         System.out.println("Please enter the filename:");
         scanner.nextLine();
         String filename = scanner.nextLine();
-        loadData(filename);
+        lists.loadData(filename);
     }
 
-    //protected abstract void loadData(String filename) throws IOException;
 
-    // EFFECTS: used chooses filename
+    // EFFECTS: user chooses filename
     private void fileNameEntrySD() throws IOException {
         System.out.println("Please enter the filename:");
         scanner.nextLine();
         String filename = scanner.nextLine();
-        saveData(filename);
+        lists.saveData(filename);
     }
-
-    //protected abstract void saveData(String filename) throws IOException;
 
 
     // REQUIRES: User must enter 1,2,3, or 4,or 5
@@ -74,7 +72,7 @@ public abstract class UserInterface implements Loadable, Saveable {
         return selection;
     }
 
-    // MODIFIES: this, task
+    // MODIFIES: this, Item
     // EFFECTS: user inputs new item. New Item is constructed and added to masterlist.
     private void enterItem() {
         scanner.nextLine();
@@ -86,39 +84,37 @@ public abstract class UserInterface implements Loadable, Saveable {
             System.out.println("Please enter your personal task.");
             String item = scanner.nextLine();
             Item task = new PersonalItem(item);
-            this.addItem(task);
+            lists.addItem(task);
         } else if (selection == 2) {
             System.out.println("Please enter your school task.");
             scanner.nextLine();
             String item = scanner.nextLine();
             Item task = new SchoolItem(item);
-            this.addItem(task);
+            lists.addItem(task);
         }
 
     }
 
-    protected abstract void addItem(Item task);
 
     // REQUIRES: selection inputted by user must be on displayed toDoList
-    // MODIFIES: this, task
+    // MODIFIES: this, Item
     // EFFECTS: asks user which item should be crossed off and crosses it off
     private void removeItem() {
-        this.toDoListPrinter();
+        toDoListPrinter();
         System.out.println("Which item would you like to cross off?");
         int selection = scanner.nextInt();
-        this.crossOff(selection);
+        lists.crossOff(selection);
         System.out.println("Here is your updated to do list:");
-        this.toDoListPrinter();
+        toDoListPrinter();
 
     }
 
-    protected abstract void crossOff(int selection);
 
     // EFFECTS: prints out items in masterList with not complete status
     private void toDoListPrinter() {
         int counter = 0;
-        for (int i = 0; i < this.masterList.size();i++) {
-            Item task = this.masterList.get(i);
+        for (int i = 0; i < lists.getMasterList().size();i++) {
+            Item task = lists.getMasterList().get(i);
             if (task.getStatus() == false) {
                 counter++;
                 System.out.println(counter + ". " + task.getName());
@@ -129,15 +125,15 @@ public abstract class UserInterface implements Loadable, Saveable {
     // EFFECTS: prints out item in crossedOff list
     private void crossedOffPrinter() {
         System.out.println("The following items were crossed off:");
-        for (int i = 0; i < this.crossedOff.size(); i++) {
-            System.out.println(this.crossedOff.get(i).getName());
+        for (int i = 0; i < lists.getCrossedOff().size(); i++) {
+            System.out.println(lists.getCrossedOff().get(i).getName());
         }
     }
 
     // EFFECTS: prints out all items in masterList with their status'
     private void masterListPrinter() {
-        for (int i = 0; i < this.masterList.size(); i++) {
-            Item task = masterList.get(i);
+        for (int i = 0; i < lists.getMasterList().size(); i++) {
+            Item task = lists.getMasterList().get(i);
             if (task.getStatus() == false) {
                 System.out.printf("%d. %-20s %-30s %-20s%n", i + 1, task.getName(),
                         "Status: Not Complete", "Type: " + task.getType());

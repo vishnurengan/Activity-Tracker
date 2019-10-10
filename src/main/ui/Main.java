@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Lists lists = new Lists();
-        lists.run();
+        ListInterface listInterface = new ListInterface();
+        listInterface.run();
 
     }
 }
