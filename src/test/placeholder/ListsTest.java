@@ -1,5 +1,8 @@
 package placeholder;
 
+import exceptions.ListException;
+import exceptions.NothingToCrossOffException;
+import exceptions.TooManyThingsToDoException;
 import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,9 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ListsTest {
     private Lists lists;
@@ -22,13 +23,25 @@ public class ListsTest {
     @Test
     public void testGetMasterList() {
         Item task1 = new PersonalItem("Buy Apples");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
         ArrayList<Item> listsTest = new ArrayList<>();
         listsTest.add(task1);
@@ -41,17 +54,41 @@ public class ListsTest {
     @Test
     public void testGetCrossedOff() {
         Item task1 = new PersonalItem("Buy Apples");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
-        lists.crossOff(1);
-        lists.crossOff(1);
-        lists.crossOff(1);
+        try {
+            lists.crossOff(1);
+        } catch (ListException e) {
+            fail();
+        }
+        try {
+            lists.crossOff(1);
+        } catch (ListException e) {
+            fail();
+        }
+        try {
+            lists.crossOff(1);
+        } catch (ListException e) {
+            fail();
+        }
 
         ArrayList<Item> listsTest = new ArrayList<>();
         listsTest.add(task1);
@@ -64,7 +101,11 @@ public class ListsTest {
     @Test
     public void testMasterListContainsOne() {
         Item task = new PersonalItem("Buy Apples");
-        lists.addItem(task);
+        try {
+            lists.addItem(task);
+        } catch (ListException e) {
+            fail();
+        }
         assertTrue(lists.masterListContains("Buy Apples"));
         assertFalse(lists.masterListContains("Buy Kiwis"));
 
@@ -74,17 +115,29 @@ public class ListsTest {
     public void testMasterListContainsMany() {
 
         Item task1 = new PersonalItem("Buy Apples");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
-        lists.addItem(task1);
-        lists.addItem(task2);
-        lists.addItem(task3);
+//        lists.addItem(task1);
+//        lists.addItem(task2);
+//        lists.addItem(task3);
 
         assertTrue(lists.masterListContains("Buy Apples"));
         assertTrue(lists.masterListContains("Buy Kiwis"));
@@ -94,35 +147,71 @@ public class ListsTest {
     @Test
     public void testCrossedOffListContainsOnce() {
         Item task1 = new PersonalItem("Buy Apples");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
-        lists.addItem(task1);
-        lists.addItem(task2);
-        lists.addItem(task3);
+//        lists.addItem(task1);
+//        lists.addItem(task2);
+//        lists.addItem(task3);
 
-        lists.crossOff(1);
+        try {
+            lists.crossOff(1);
+        } catch (ListException e) {
+            fail();
+        }
         assertTrue(lists.crossedOffListContains("Buy Apples"));
     }
 
     @Test
     public void testCrossedOffListContainsMultiple() {
         Item task1 = new PersonalItem("Buy Apples");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
-        lists.crossOff(1); // Apples removed off toDoList
-        lists.crossOff(1); // Buy Kiwis is now user selection 1, Buy Bananas is user selection 2
+        try {
+            lists.crossOff(1); // Apples removed off toDoList
+        } catch (ListException e) {
+            fail();
+        }
+        try {
+            lists.crossOff(1); // Buy Kiwis is now user selection 1, Buy Bananas is user selection 2
+        } catch (ListException e) {
+            fail();
+        }
         assertTrue(lists.crossedOffListContains("Buy Apples"));
         assertTrue(lists.crossedOffListContains("Buy Kiwis"));
         assertFalse(lists.crossedOffListContains("Buy Supplies"));
@@ -131,16 +220,36 @@ public class ListsTest {
     @Test
     public void testMasterListStatus() {
         Item task1 = new PersonalItem("Buy Apples");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
-        lists.crossOff(1); // Apples removed off toDoList
-        lists.crossOff(2); // Buy Kiwis is now user selection 1, Buy Bananas is user selection 2
+        try {
+            lists.crossOff(1); // Apples removed off toDoList
+        } catch (ListException e) {
+            fail();
+        }
+        try {
+            lists.crossOff(2); // Buy Kiwis is now user selection 1, Buy Bananas is user selection 2
+        } catch (ListException e) {
+            fail();
+        }
 
         assertTrue(lists.masterListStatus("Buy Apples"));
         assertFalse(lists.masterListStatus("Buy Kiwis"));
@@ -152,7 +261,11 @@ public class ListsTest {
     @Test
     public void testAddOneItem() {
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
         assertTrue(lists.masterListContains("Buy Supplies"));
     }
@@ -160,13 +273,25 @@ public class ListsTest {
     @Test
     public void testAddMultipleItems() {
         Item task1 = new PersonalItem("Buy Apples");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
 
         assertTrue(lists.masterListContains("Buy Apples"));
@@ -178,15 +303,31 @@ public class ListsTest {
     @Test
     public void testCrossOff() {
         Item task1 = new PersonalItem("Buy Apples");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task3 = new SchoolItem("Buy Supplies");
-        lists.addItem(task3);
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
 
-        lists.crossOff(1);
+        try {
+            lists.crossOff(1);
+        } catch (ListException e) {
+            fail();
+        }
         assertTrue(lists.crossedOffListContains("Buy Apples"));
         assertTrue(lists.masterListStatus("Buy Apples"));
 
@@ -220,15 +361,27 @@ public class ListsTest {
     @Test
     public void testSaveData() throws IOException {
         Item task1 = new PersonalItem("Buy Kiwis");
-        lists.addItem(task1);
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
 
         Item task2 = new PersonalItem("Buy Grapes");
-        lists.addItem(task2);
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
 
 
-        lists.addItem(task1);
-        lists.addItem(task2);
-        lists.crossOff(1); // Crossing of Buy Kiwis
+//        lists.addItem(task1);
+//        lists.addItem(task2);
+        try {
+            lists.crossOff(1); // Crossing of Buy Kiwis
+        } catch (ListException e) {
+            fail();
+        }
 
         saveDataTester(lists);
 
@@ -247,9 +400,21 @@ public class ListsTest {
 
     @Test
     public void testAddItem() {
-        lists.addItem("Go to Gym",1);
-        lists.addItem("Study",2);
-        lists.addItem("Complete Project", 3);
+        try {
+            lists.addItem("Go to Gym",1);
+        } catch (ListException e) {
+            fail();
+        }
+        try {
+            lists.addItem("Study",2);
+        } catch (ListException e) {
+            fail();
+        }
+        try {
+            lists.addItem("Complete Project", 3);
+        } catch (ListException e) {
+            fail();
+        }
 
         assertTrue(lists.masterListContains("Go to Gym"));
         assertTrue(lists.masterListContains("Study"));

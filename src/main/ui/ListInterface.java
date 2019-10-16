@@ -1,5 +1,8 @@
 package ui;
 
+import exceptions.NoSuchItemExistsException;
+import exceptions.NothingToCrossOffException;
+import exceptions.TooManyThingsToDoException;
 import model.*;
 
 
@@ -27,18 +30,37 @@ public class ListInterface {
         while (true) {
             int selection = userSelection();
             if (selection == 1) {
-                enterItem();
-            } else if (selection == 2) {
+                try {
+                    enterItem();
+                } catch (TooManyThingsToDoException e) {
+                    System.out.println("Sorry! You have to many uncompleted tasks! Task not added!");
+                } finally {
+                    int noUncompleteTasks = lists.masterListSize() - lists.crossedOffSize();
+                    System.out.println("Number of Uncomplete Tasks: " + noUncompleteTasks);
+                }
+            } else {
+                runContinue(selection);
+            }
+        }
+    }
+
+    public void runContinue(int selection) throws IOException {
+        if (selection == 2) {
+            try {
                 removeItem();
                 crossedOffPrinter();
-            } else if (selection == 3) {
-                masterListPrinter();
-            } else if (selection == 4) {
-                fileNameEntryLD();
-            } else if (selection == 5) {
-                fileNameEntrySD();
-                break;
+            } catch (NothingToCrossOffException e) {
+                System.out.println("Oops. There's nothing to cross off.");
+            } catch (NoSuchItemExistsException e) {
+                System.out.println("Oops. You entered an invalid number");
             }
+        } else if (selection == 3) {
+            masterListPrinter();
+        } else if (selection == 4) {
+            fileNameEntryLD();
+        } else if (selection == 5) {
+            fileNameEntrySD();
+            System.exit(0);
         }
     }
 
@@ -72,7 +94,7 @@ public class ListInterface {
 
     // MODIFIES: this, Item
     // EFFECTS: user inputs new item. New Item is constructed and added to masterlist.
-    private void enterItem() {
+    private void enterItem() throws TooManyThingsToDoException {
         int selection = taskSelection();
 
         if (selection == 1) {
@@ -105,7 +127,7 @@ public class ListInterface {
     // REQUIRES: selection inputted by user must be on displayed toDoList
     // MODIFIES: this, Item
     // EFFECTS: asks user which item should be crossed off and crosses it off
-    private void removeItem() {
+    private void removeItem() throws NothingToCrossOffException, NoSuchItemExistsException {
         toDoListPrinter();
         System.out.println("Which item would you like to cross off?");
         int selection = scanner.nextInt();

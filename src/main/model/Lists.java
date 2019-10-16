@@ -1,5 +1,9 @@
 package model;
 
+import exceptions.NoSuchItemExistsException;
+import exceptions.NothingToCrossOffException;
+import exceptions.TooManyThingsToDoException;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -68,7 +72,11 @@ public class Lists implements Loadable, Saveable {
     // REQUIRES: number inputted must be in displayed list
     // MODIFIES: this, Item
     // EFFECTS: finds Item to cross off, toggles its status, and copies it to crossedOff list
-    public void crossOff(int number) {
+    public void crossOff(int number) throws NothingToCrossOffException, NoSuchItemExistsException {
+        if (masterList.size() == crossedOff.size()) {
+            throw new NothingToCrossOffException();
+        }
+
         int counter = 0;
         for (int i = 0; i < this.masterList.size();i++) {
             Item task = this.masterList.get(i);
@@ -77,6 +85,9 @@ public class Lists implements Loadable, Saveable {
                 if (counter == number) {
                     this.crossedOff.add(task);
                     task.setStatus(true);
+                    return;
+                } else if (counter == masterList.size() - crossedOff.size()) {
+                    throw new NoSuchItemExistsException();
                 }
             }
         }
@@ -84,7 +95,7 @@ public class Lists implements Loadable, Saveable {
 
     // MODIFIES: this, Item
     // EFFECTS: creates new Item of specified sub class and adds to masterList
-    public void addItem(String item, int selection) {
+    public void addItem(String item, int selection) throws TooManyThingsToDoException {
         if (selection == 1) {
             Item task = new PersonalItem(item);
             addItem(task);
@@ -99,7 +110,11 @@ public class Lists implements Loadable, Saveable {
 
     // MODIFIES: this
     // EFFECTS: Item is added to masterList.
-    public void addItem(Item task) {
+    public void addItem(Item task) throws TooManyThingsToDoException {
+        if (masterList.size() - crossedOff.size() == 5) {
+            throw new TooManyThingsToDoException();
+        }
+
         this.masterList.add(task);
         task.printMessage();
     }
@@ -135,6 +150,14 @@ public class Lists implements Loadable, Saveable {
             }
         }
         return false;
+    }
+
+    public int masterListSize() {
+        return masterList.size();
+    }
+
+    public int crossedOffSize() {
+        return crossedOff.size();
     }
 
 
