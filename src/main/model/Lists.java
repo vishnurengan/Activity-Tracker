@@ -102,7 +102,7 @@ public class Lists implements Loadable, Saveable {
         } else if (selection == 2) {
             Item task = new SchoolItem(item);
             addItem(task);
-        } else if (selection == 3) {
+        } else  {
             Item task = new WorkItem(item);
             addItem(task);
         }

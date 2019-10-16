@@ -1,6 +1,7 @@
 package placeholder;
 
 import exceptions.ListException;
+import exceptions.NoSuchItemExistsException;
 import exceptions.NothingToCrossOffException;
 import exceptions.TooManyThingsToDoException;
 import model.*;
@@ -47,6 +48,7 @@ public class ListsTest {
         listsTest.add(task1);
         listsTest.add(task2);
         listsTest.add(task3);
+
 
         assertEquals(listsTest, lists.getMasterList());
     }
@@ -420,5 +422,176 @@ public class ListsTest {
         assertTrue(lists.masterListContains("Study"));
         assertTrue(lists.masterListContains("Complete Project"));
     }
+
+    @Test
+    public void testMasterListGetSize() {
+        Item task1 = new PersonalItem("Buy Apples");
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
+
+        assertEquals(3, lists.masterListSize());
+
+    }
+
+    @Test
+    public void testCrossedOffSize() {
+        Item task1 = new PersonalItem("Buy Apples");
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
+
+        try {
+            lists.crossOff(1);
+        } catch (ListException e) {
+            fail();
+        }
+
+        try {
+            lists.crossOff(1);
+        } catch (ListException e) {
+            fail();
+        }
+
+        assertEquals(2, lists.crossedOffSize());
+    }
+
+    @Test
+    public void testNothingToCrossOffException() {
+        try {
+            lists.crossOff(1);
+            fail();
+        } catch (NothingToCrossOffException e) {
+            System.out.println("Nothing to Cross Off!");
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task1 = new PersonalItem("Buy Apples");
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
+
+        try {
+            lists.crossOff(1);
+        } catch (ListException e) {
+            fail();
+        }
+
+        try {
+            lists.crossOff(1);
+            fail();
+        } catch (NothingToCrossOffException e) {
+            System.out.println("Nothing to Cross Off!");
+        } catch (ListException e) {
+            fail();
+        }
+
+
+
+    }
+
+    @Test
+    public void testNoSuchItemExistsException() {
+        Item task1 = new PersonalItem("Buy Apples");
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
+
+        try {
+            lists.crossOff(2);
+            fail();
+        } catch (NoSuchItemExistsException e) {
+            System.out.println("Invalid Entry!");
+        } catch (ListException e) {
+            fail();
+        }
+
+    }
+
+    @Test
+    public void testTooManyThingsToDoException() {
+
+        Item task1 = new PersonalItem("Buy Apples");
+        try {
+            lists.addItem(task1);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task2 = new PersonalItem("Buy Kiwis");
+        try {
+            lists.addItem(task2);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task3 = new SchoolItem("Buy Supplies");
+        try {
+            lists.addItem(task3);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task4 = new PersonalItem("Buy Grapes");
+        try {
+            lists.addItem(task4);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task5 = new PersonalItem("Buy Pencil");
+        try {
+            lists.addItem(task5);
+        } catch (ListException e) {
+            fail();
+        }
+
+        Item task6 = new SchoolItem("Complete Assignment");
+        try {
+            lists.addItem(task6);
+            fail();
+        } catch (TooManyThingsToDoException e) {
+            System.out.println("Too Many Uncompleted Tasks!");
+        }
+
+    }
+
 
 }
