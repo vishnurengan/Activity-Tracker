@@ -9,17 +9,21 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Lists implements Loadable, Saveable {
     private ArrayList<Item> masterList;
     private ArrayList<Item> crossedOff;
+    Map<String, Item> listMap;
 
     // EFFECTS: sets are empty and initializes scanner
     public Lists() {
         masterList = new ArrayList<>();
         crossedOff = new ArrayList<>();
+        listMap = new HashMap<>();
     }
 
     // EFFECTS: returns masterList
@@ -98,12 +102,15 @@ public class Lists implements Loadable, Saveable {
     public void addItem(String item, int selection) throws TooManyThingsToDoException {
         if (selection == 1) {
             Item task = new PersonalItem(item);
+            listMap.put(item,task);
             addItem(task);
         } else if (selection == 2) {
             Item task = new SchoolItem(item);
+            listMap.put(item,task);
             addItem(task);
         } else  {
             Item task = new WorkItem(item);
+            listMap.put(item,task);
             addItem(task);
         }
     }
@@ -158,6 +165,11 @@ public class Lists implements Loadable, Saveable {
 
     public int crossedOffSize() {
         return crossedOff.size();
+    }
+
+    public Item getItem(String item) {
+        Item task = listMap.get(item);
+        return task;
     }
 
 
