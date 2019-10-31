@@ -32,24 +32,4 @@ public class PriorityList {
     }
 
 
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        PriorityList that = (PriorityList) o;
-
-        return urgentItems != null ? urgentItems.equals(that.urgentItems) : that.urgentItems == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return urgentItems != null ? urgentItems.hashCode() : 0;
-    }
 }

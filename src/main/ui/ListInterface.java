@@ -9,6 +9,7 @@ import model.*;
 import java.io.IOException;
 import java.util.Scanner;
 // Using scanner as provided in the LittleLoggingCalculator
+// Loading and Saving were implemented following provided example in project deliverable file
 
 public class ListInterface {
     private Lists lists;
