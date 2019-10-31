@@ -4,14 +4,12 @@ import java.util.Objects;
 
 public class UrgentItem {
     private String name;
-    private boolean isComplete;
     private String type;
 
     private PriorityList priorityList;
 
     public UrgentItem(String itemName) {
         name = itemName;
-        isComplete = false;
         this.type = "Urgent";
         priorityList = new PriorityList();
     }
@@ -41,6 +39,10 @@ public class UrgentItem {
         return priorityList;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public String getName() {
         return name;
     }
@@ -56,20 +58,35 @@ public class UrgentItem {
 
         UrgentItem that = (UrgentItem) o;
 
-        if (isComplete != that.isComplete) {
-            return false;
-        }
-        if (!name.equals(that.name)) {
-            return false;
-        }
-        return type.equals(that.type);
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + (isComplete ? 1 : 0);
-        result = 31 * result + type.hashCode();
-        return result;
+        return name != null ? name.hashCode() : 0;
     }
+
+    //    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//
+//        UrgentItem that = (UrgentItem) o;
+//
+//        if (!name.equals(that.name)) {
+//            return false;
+//        }
+//        return type.equals(that.type);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = name.hashCode();
+//        result = 31 * result + type.hashCode();
+//        return result;
+//    }
 }
