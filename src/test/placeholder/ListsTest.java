@@ -50,7 +50,7 @@ public class ListsTest {
         listsTest.add(task3);
 
 
-        assertEquals(listsTest, lists.getMasterList());
+        assertEquals(listsTest, lists.getMasterList().getMasterList());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ListsTest {
         listsTest.add(task2);
         listsTest.add(task3);
 
-        assertEquals(listsTest, lists.getCrossedOff());
+        assertEquals(listsTest, lists.getCrossedOff().getCrossedOff());
     }
 
     @Test
@@ -108,8 +108,8 @@ public class ListsTest {
         } catch (ListException e) {
             fail();
         }
-        assertTrue(lists.masterListContains("Buy Apples"));
-        assertFalse(lists.masterListContains("Buy Kiwis"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Apples"));
+        assertFalse(lists.getMasterList().masterListContains("Buy Kiwis"));
 
     }
 
@@ -141,9 +141,9 @@ public class ListsTest {
 //        lists.addItem(task2);
 //        lists.addItem(task3);
 
-        assertTrue(lists.masterListContains("Buy Apples"));
-        assertTrue(lists.masterListContains("Buy Kiwis"));
-        assertTrue(lists.masterListContains("Buy Supplies"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Apples"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Kiwis"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Supplies"));
     }
 
     @Test
@@ -178,7 +178,7 @@ public class ListsTest {
         } catch (ListException e) {
             fail();
         }
-        assertTrue(lists.crossedOffListContains("Buy Apples"));
+        assertTrue(lists.getCrossedOff().crossedOffListContains("Buy Apples"));
     }
 
     @Test
@@ -214,9 +214,9 @@ public class ListsTest {
         } catch (ListException e) {
             fail();
         }
-        assertTrue(lists.crossedOffListContains("Buy Apples"));
-        assertTrue(lists.crossedOffListContains("Buy Kiwis"));
-        assertFalse(lists.crossedOffListContains("Buy Supplies"));
+        assertTrue(lists.getCrossedOff().crossedOffListContains("Buy Apples"));
+        assertTrue(lists.getCrossedOff().crossedOffListContains("Buy Kiwis"));
+        assertFalse(lists.getCrossedOff().crossedOffListContains("Buy Supplies"));
     }
 
     @Test
@@ -253,11 +253,11 @@ public class ListsTest {
             fail();
         }
 
-        assertTrue(lists.masterListStatus("Buy Apples"));
-        assertFalse(lists.masterListStatus("Buy Kiwis"));
-        assertTrue(lists.masterListStatus("Buy Supplies"));
+        assertTrue(lists.getMasterList().masterListStatus("Buy Apples"));
+        assertFalse(lists.getMasterList().masterListStatus("Buy Kiwis"));
+        assertTrue(lists.getMasterList().masterListStatus("Buy Supplies"));
 
-        assertFalse(lists.masterListStatus("Buy Cherries"));
+        assertFalse(lists.getMasterList().masterListStatus("Buy Cherries"));
     }
 
     @Test
@@ -269,7 +269,7 @@ public class ListsTest {
             fail();
         }
 
-        assertTrue(lists.masterListContains("Buy Supplies"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Supplies"));
     }
 
     @Test
@@ -296,10 +296,10 @@ public class ListsTest {
         }
 
 
-        assertTrue(lists.masterListContains("Buy Apples"));
-        assertTrue(lists.masterListContains("Buy Kiwis"));
-        assertTrue(lists.masterListContains("Buy Supplies"));
-        assertFalse(lists.masterListContains("Buy Cherries"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Apples"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Kiwis"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Supplies"));
+        assertFalse(lists.getMasterList().masterListContains("Buy Cherries"));
     }
 
     @Test
@@ -330,34 +330,34 @@ public class ListsTest {
         } catch (ListException e) {
             fail();
         }
-        assertTrue(lists.crossedOffListContains("Buy Apples"));
-        assertTrue(lists.masterListStatus("Buy Apples"));
+        assertTrue(lists.getCrossedOff().crossedOffListContains("Buy Apples"));
+        assertTrue(lists.getMasterList().masterListStatus("Buy Apples"));
 
-        assertFalse(lists.crossedOffListContains("Buy Kiwis"));
-        assertFalse(lists.masterListStatus("Buy Kiwis"));
+        assertFalse(lists.getCrossedOff().crossedOffListContains("Buy Kiwis"));
+        assertFalse(lists.getMasterList().masterListStatus("Buy Kiwis"));
 
     }
     @Test
     public void testLoadData() throws IOException {
         lists.loadData("loadTestFile.txt");
-        assertTrue(lists.masterListContains("Buy Apples"));
-        assertTrue(lists.masterListContains("Study"));
-        assertTrue(lists.masterListContains("Go to Gym"));
-        assertTrue(lists.masterListContains("Buy Supplies"));
-        assertTrue(lists.masterListContains("Set Meeting"));
-        assertTrue(lists.masterListContains("Complete Project"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Apples"));
+        assertTrue(lists.getMasterList().masterListContains("Study"));
+        assertTrue(lists.getMasterList().masterListContains("Go to Gym"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Supplies"));
+        assertTrue(lists.getMasterList().masterListContains("Set Meeting"));
+        assertTrue(lists.getMasterList().masterListContains("Complete Project"));
 
-        assertTrue(lists.masterListStatus("Buy Apples"));
-        assertFalse(lists.masterListStatus("Go to Gym"));
-        assertTrue(lists.masterListStatus("Buy Supplies"));
-        assertFalse(lists.masterListStatus("Study"));
-        assertTrue(lists.masterListStatus("Set Meeting"));
-        assertFalse(lists.masterListStatus("Complete Project"));
+        assertTrue(lists.getMasterList().masterListStatus("Buy Apples"));
+        assertFalse(lists.getMasterList().masterListStatus("Go to Gym"));
+        assertTrue(lists.getMasterList().masterListStatus("Buy Supplies"));
+        assertFalse(lists.getMasterList().masterListStatus("Study"));
+        assertTrue(lists.getMasterList().masterListStatus("Set Meeting"));
+        assertFalse(lists.getMasterList().masterListStatus("Complete Project"));
 
 
-        assertTrue(lists.crossedOffListContains("Set Meeting"));
-        assertTrue(lists.crossedOffListContains("Buy Apples"));
-        assertFalse(lists.crossedOffListContains("Go to Gym"));
+        assertTrue(lists.getCrossedOff().crossedOffListContains("Set Meeting"));
+        assertTrue(lists.getCrossedOff().crossedOffListContains("Buy Apples"));
+        assertFalse(lists.getCrossedOff().crossedOffListContains("Go to Gym"));
     }
 
     @Test
@@ -388,11 +388,11 @@ public class ListsTest {
         saveDataTester(lists);
 
         lists.loadData("saveDataTestFile.txt");
-        assertTrue(lists.masterListContains("Buy Kiwis"));
-        assertTrue(lists.masterListContains("Buy Grapes"));
-        assertFalse(lists.masterListContains("Buy Apples"));
-        assertTrue(lists.masterListStatus("Buy Kiwis"));
-        assertFalse(lists.masterListStatus("Buy Grapes"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Kiwis"));
+        assertTrue(lists.getMasterList().masterListContains("Buy Grapes"));
+        assertFalse(lists.getMasterList().masterListContains("Buy Apples"));
+        assertTrue(lists.getMasterList().masterListStatus("Buy Kiwis"));
+        assertFalse(lists.getMasterList().masterListStatus("Buy Grapes"));
 
     }
 
@@ -418,9 +418,9 @@ public class ListsTest {
             fail();
         }
 
-        assertTrue(lists.masterListContains("Go to Gym"));
-        assertTrue(lists.masterListContains("Study"));
-        assertTrue(lists.masterListContains("Complete Project"));
+        assertTrue(lists.getMasterList().masterListContains("Go to Gym"));
+        assertTrue(lists.getMasterList().masterListContains("Study"));
+        assertTrue(lists.getMasterList().masterListContains("Complete Project"));
     }
 
     @Test
@@ -446,7 +446,7 @@ public class ListsTest {
             fail();
         }
 
-        assertEquals(3, lists.masterListSize());
+        assertEquals(3, lists.getMasterList().masterListSize());
 
     }
 
@@ -485,7 +485,7 @@ public class ListsTest {
             fail();
         }
 
-        assertEquals(2, lists.crossedOffSize());
+        assertEquals(2, lists.getCrossedOff().crossedOffSize());
     }
 
     @Test

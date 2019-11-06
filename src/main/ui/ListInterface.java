@@ -38,7 +38,8 @@ public class ListInterface {
                 } catch (TooManyThingsToDoException e) {
                     System.out.println("Sorry! You have to many uncompleted tasks! Task not added!");
                 } finally {
-                    int noUncompleteTasks = lists.masterListSize() - lists.crossedOffSize();
+                    int noUncompleteTasks;
+                    noUncompleteTasks = lists.getMasterList().masterListSize() - lists.getCrossedOff().crossedOffSize();
                     System.out.println("Number of Uncomplete Tasks: " + noUncompleteTasks);
                 }
             } else {
@@ -197,8 +198,8 @@ public class ListInterface {
     // EFFECTS: prints out items in masterList with not complete status
     private void toDoListPrinter() {
         int counter = 0;
-        for (int i = 0; i < lists.getMasterList().size();i++) {
-            Item task = lists.getMasterList().get(i);
+        for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
+            Item task = lists.getMasterList().getMasterList().get(i);
             if (task.getStatus() == false) {
                 counter++;
                 System.out.println(counter + ". " + task.getName());
@@ -209,15 +210,15 @@ public class ListInterface {
     // EFFECTS: prints out item in crossedOff list
     private void crossedOffPrinter() {
         System.out.println("The following items were crossed off:");
-        for (int i = 0; i < lists.getCrossedOff().size(); i++) {
-            System.out.println(lists.getCrossedOff().get(i).getName());
+        for (int i = 0; i < lists.getCrossedOff().crossedOffSize(); i++) {
+            System.out.println(lists.getCrossedOff().getCrossedOff().get(i).getName());
         }
     }
 
     // EFFECTS: prints out all items in masterList with their status'
     private void masterListPrinter() {
-        for (int i = 0; i < lists.getMasterList().size(); i++) {
-            Item task = lists.getMasterList().get(i);
+        for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
+            Item task = lists.getMasterList().getMasterList().get(i);
             if (task.getStatus() == false) {
                 System.out.printf("%d. %-20s %-30s %-20s%n", i + 1, task.getName(),
                         "Status: Not Complete", "Type: " + task.getType());
