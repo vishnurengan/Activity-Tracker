@@ -8,38 +8,24 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 public class Lists implements Loadable, Saveable {
-    // ***REMOVE***private ArrayList<Item> masterList;
+
     private MasterList masterList;
-    // ***REMOVE***private ArrayList<Item> crossedOff;
     private CrossedOff crossedOff;
     Map<String, Item> listMap;
 
     // EFFECTS: sets are empty and initializes scanner
     public Lists() {
-        //***REMOVE***masterList = new ArrayList<>();
+
         masterList = new MasterList();
-        //***REMOVE***crossedOff = new ArrayList<>();
         crossedOff = new CrossedOff();
         listMap = new HashMap<>();
     }
-
-    //***REMOVE***
-    // EFFECTS: returns masterList
-//    public ArrayList<Item> getMasterList() {
-//        return masterList;
-//    }
-
-//    // EFFECTS: returns crossedOff List
-//    public ArrayList<Item> getCrossedOff() {
-//        return crossedOff;
-//    }
 
 
     // EFFECTS: data is loaded from file
@@ -130,51 +116,6 @@ public class Lists implements Loadable, Saveable {
         this.masterList.getMasterList().add(task);
         task.printMessage();
     }
-
-    //REMOVE
-
-//    // EFFECTS: Returns true is masterList contains task and false otherwise
-//    public boolean masterListContains(String name) {
-//        for (int i = 0; i < this.masterList.size();i++) {
-//            Item task = this.masterList.get(i);
-//            if (task.getName().equals(name)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-//    // EFFECTS: Returns true is crossedOffList contains task and false otherwise
-//    public boolean crossedOffListContains(String name) {
-//        for (int i = 0; i < this.crossedOff.size();i++) {
-//            Item task = this.crossedOff.get(i);
-//            if (task.getName().equals(name)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-    // REMOVE
-//    // EFFECTS: returns status of item in masterList
-//    public boolean masterListStatus(String name) {
-//        for (int i = 0; i < this.masterList.size();i++) {
-//            Item task = this.masterList.get(i);
-//            if (task.getName().equals(name)) {
-//                return task.getStatus();
-//            }
-//        }
-//        return false;
-//    }
-
-    //REMove
-//   // public int masterListSize() {
-//        return masterList.size();
-//    }
-
-//    public int crossedOffSize() {
-//        return crossedOff.size();
-//    }
 
     public Item getItem(String item) {
         Item task = listMap.get(item);

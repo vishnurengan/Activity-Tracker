@@ -155,19 +155,19 @@ public class ListInterface {
         int selection = taskSelection();
 
         if (selection == 1) {
-            scanner.nextLine();
-            String item = scanner.nextLine();
-            lists.addItem(item,selection);
+            useScanner(selection);
         } else if (selection == 2) {
-            scanner.nextLine();
-            String item = scanner.nextLine();
-            lists.addItem(item,selection);
+            useScanner(selection);
         } else if (selection == 3) {
-            scanner.nextLine();
-            String item = scanner.nextLine();
-            lists.addItem(item,selection);
+            useScanner(selection);
         }
 
+    }
+
+    public void useScanner(int selection) throws TooManyThingsToDoException {
+        scanner.nextLine();
+        String item = scanner.nextLine();
+        lists.addItem(item,selection);
     }
 
     // EFFECTS: returns user selection
@@ -219,13 +219,7 @@ public class ListInterface {
     private void masterListPrinter() {
         for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
             Item task = lists.getMasterList().getMasterList().get(i);
-            if (task.getStatus() == false) {
-                System.out.printf("%d. %-20s %-30s %-20s%n", i + 1, task.getName(),
-                        "Status: Not Complete", "Type: " + task.getType());
-            } else if (task.getStatus() == true) {
-                System.out.printf("%d. %-20s %-30s %-20s%n", i + 1, task.getName(),
-                        "Status: Complete", "Type: " + task.getType());
-            }
+            taskPrinter(task,i);
         }
     }
 
@@ -234,4 +228,10 @@ public class ListInterface {
             System.out.println(ui.getName());
         }
     }
+
+    private void taskPrinter(Item task, int i) {
+        System.out.printf("%d. %-20s %-30s %-20s%n", i + 1, task.getName(),
+                task.getStatus() ? "Status: Complete" : "Status: Not Complete", "Type: " + task.getType());
+    }
+
 }
