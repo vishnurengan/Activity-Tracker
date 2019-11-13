@@ -4,6 +4,7 @@ import exceptions.NoSuchItemExistsException;
 import exceptions.NothingToCrossOffException;
 import exceptions.TooManyThingsToDoException;
 import model.*;
+import network.GetLocation;
 
 
 import java.io.IOException;
@@ -18,7 +19,9 @@ public class ListInterface {
 
     // EFFECTS: constructs lists and initializes scanner
     public ListInterface() {
+        ConcreteItemObserver concreteItemObserver = new ConcreteItemObserver();
         lists = new Lists();
+        lists.addObserver(concreteItemObserver);
         scanner = new Scanner(System.in);
         priorityList = new PriorityList();
     }

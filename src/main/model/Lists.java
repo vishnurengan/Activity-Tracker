@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Lists implements Loadable, Saveable {
+public class Lists extends Subject implements Loadable, Saveable {
 
     private MasterList masterList;
     private CrossedOff crossedOff;
@@ -21,7 +21,7 @@ public class Lists implements Loadable, Saveable {
 
     // EFFECTS: sets are empty and initializes scanner
     public Lists() {
-
+        super();
         masterList = new MasterList();
         crossedOff = new CrossedOff();
         listMap = new HashMap<>();
@@ -114,6 +114,8 @@ public class Lists implements Loadable, Saveable {
         }
 
         this.masterList.getMasterList().add(task);
+        notify(task);
+
         task.printMessage();
     }
 
