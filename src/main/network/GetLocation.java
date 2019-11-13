@@ -50,6 +50,6 @@ public class GetLocation {
     public void displayMessage(JSONObject obj) throws JSONException {
         String city = obj.getString("city");
         String regionName = obj.getString("regionName");
-        System.out.println("I see your currently located in " + city + ", " + regionName + "." );
+        System.out.println("I see your currently located in " + city + ", " + regionName + ".");
     }
 }

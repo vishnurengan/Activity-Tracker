@@ -55,13 +55,13 @@ public class GetTime {
 
 
         if (ihours >= 6 && ihours < 12) {
-            System.out.println("Good Morning Vishnu. It's " + ihours + ":" + iminutes);
+            System.out.println("Good Morning Vishnu. It's " + shours + ":" + sminutes);
         } else if (ihours >= 12 && ihours < 17) {
-            System.out.println("Good Afternoon Vishnu. It's " + ihours + ":" + iminutes);
+            System.out.println("Good Afternoon Vishnu. It's " + shours + ":" + sminutes);
         } else if (ihours >= 17 && ihours < 22) {
-            System.out.println("Good Evening Vishnu. It's " + ihours + ":" + iminutes);
+            System.out.println("Good Evening Vishnu. It's " + shours + ":" + sminutes);
         } else {
-            System.out.println("What are you doing up so late? It's " + ihours + ":" + iminutes);
+            System.out.println("What are you doing up so late? It's " + shours + ":" + sminutes);
         }
 
     }
