@@ -144,8 +144,8 @@ public class ListInterface {
     // REQUIRES: User must enter 1,2,3, or 4,or 5
     // EFFECTS: Returns user selection
     private int userSelection() {
-        System.out.println("Please enter what you would like to do: [1] add a to do list item "
-                + "[2] cross off an item [3] show all items [4] load data [5] save and quit"
+        System.out.println("Please enter what you would like to do:\n [1] add a to do list item "
+                + "[2] cross off an item [3] show all items\n [4] load data [5] save and quit\n"
                 + " [6] add to priority list [7] remove from priority list [8] get task info.");
         int selection = scanner.nextInt();
         System.out.println("You selected: " + selection);

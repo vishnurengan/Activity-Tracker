@@ -21,7 +21,6 @@ public class Lists extends Subject implements Loadable, Saveable {
 
     // EFFECTS: sets are empty and initializes scanner
     public Lists() {
-        super();
         masterList = new MasterList();
         crossedOff = new CrossedOff();
         listMap = new HashMap<>();

@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Subject {
-    private List<ItemObserver> itemObservers;
-
-    public Subject() {
-        itemObservers = new ArrayList<>();
-    }
+    private List<ItemObserver> itemObservers = new ArrayList<>();
 
     public void addObserver(ItemObserver itemObserver) {
         itemObservers.add(itemObserver);

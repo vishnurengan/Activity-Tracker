@@ -6,8 +6,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
+
+// followed example from EDX ://shamelessly quoting from: http://zetcode.com/articles/javareadwebpage/
+// followed https://github.students.cs.ubc.ca/CPSC210/JsonParserExample from piazza
+// followed https://stackoverflow.com/questions/46477861/how-to-parse-json-on-java
+
 
 public class GetLocation {
 
