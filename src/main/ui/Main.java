@@ -9,14 +9,17 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, JSONException {
-        GetTime getTime = new GetTime();
-        getTime.getTime();
+//        GetTime getTime = new GetTime();
+//        getTime.getTime();
+//
+//        GetLocation getLocation = new GetLocation();
+//        getLocation.getLocation();
 
-        GetLocation getLocation = new GetLocation();
-        getLocation.getLocation();
+//        ListInterface listInterface = new ListInterface();
+//        listInterface.run();
 
-        ListInterface listInterface = new ListInterface();
-        listInterface.run();
+        GraphicalInterface graphicalInterface = new GraphicalInterface();
+
 
     }
 }
