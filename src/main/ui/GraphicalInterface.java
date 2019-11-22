@@ -57,8 +57,9 @@ public class GraphicalInterface implements ActionListener {
 
         field = new JTextField(10);
 
-        label = new JLabel("Please enter what you would like to do: [1] add a to do list item [2] cross off an item [3] show all items [4] load data [5] save and quit ");
-        label.setFont(new Font("Courier", Font.BOLD,20));
+        label = new JLabel("Please enter what you would like to do: [1] add a to do list item "
+                + "[2] cross off an item [3] show all items [4] load data [5] save and quit ");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
         gbc.fill = GridBagConstraints.VERTICAL;
 
         gbc.gridx = 1;
@@ -115,25 +116,68 @@ public class GraphicalInterface implements ActionListener {
                 frame.remove(field);
                 frame.remove(button1);
                 frame.repaint();
+//*** OLD CAN DELETE
+//                jframe = new JFrame();
+//                jframe.setSize(1500, 400);
+//                jframe.setLayout(new BorderLayout());
+//
+//                JTextArea jtextArea = new JTextArea();
+//                jtextArea.append("Hello World\n");
+//                // ToDoLst Printer
+//                int counter = 0;
+//                for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
+//                    Item task = lists.getMasterList().getMasterList().get(i);
+//                    if (task.getStatus() == false) {
+//                        counter++;
+//                        jtextArea.append(counter + ". " + task.getName() + "\n");
+//                    }
+//                }
+//
+//                jframe.add(jtextArea,BorderLayout.CENTER );
+//                jframe.setVisible(true);
 
                 jframe = new JFrame();
                 jframe.setSize(1500, 400);
-                jframe.setLayout(new BorderLayout());
+                jframe.setLayout(gbl);
+                gbc.insets = new Insets(5,5,5,5);
+
+                JButton button = new JButton("OK");
+                button.setActionCommand("PrinterOK");
+                button.addActionListener(this);
+
+                gbc.gridx = 1;
+                gbc.gridy = 4;
+                jframe.add(button,gbc);
 
                 JTextArea jtextArea = new JTextArea();
-                jtextArea.append("Hello World\n");
-                // ToDoLst Printer
+
                 int counter = 0;
                 for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
                     Item task = lists.getMasterList().getMasterList().get(i);
+                    jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
                     if (task.getStatus() == false) {
                         counter++;
-                        jtextArea.append(counter + ". " + task.getName() + "\n");
+                        jtextArea.append(String.format("%d. %-20s", counter, task.getName()));
                     }
                 }
+//                for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
+//                    Item task = lists.getMasterList().getMasterList().get(i);
+//                    jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+//                    //https://stackoverflow.com/questions/29147709/aligning-text-in-jtextarea-in-java
+//
+//                    jtextArea.append(String.format("%d. %-30s %-30s %-30s", i + 1, task.getName(),
+//                          task.getStatus() ? "Status: Complete" : "Status: Not Complete", "Type: " + task.getType()));
+////
+//                    if (i < lists.getMasterList().getMasterList().size() - 1) {
+//                        jtextArea.append("\n");
+//                    }
+//                }
+                gbc.gridx = 1;
+                gbc.gridy = 2;
+                jframe.add(jtextArea,gbc);
 
-                jframe.add(jtextArea,BorderLayout.CENTER );
                 jframe.setVisible(true);
+
 
 
 
@@ -157,30 +201,70 @@ public class GraphicalInterface implements ActionListener {
                 frame.add(button2, gbc);
             }
             if (b1input.equals("3")) {
-                System.out.println("hello");
+               //*** BORDER LAYOUT
+//                jframe = new JFrame();
+//                jframe.setSize(1500, 400);
+//                jframe.setLayout(new BorderLayout());
+//
+////        JButton button = new JButton("HERE IS THE BUTTON");
+////        button.setActionCommand("ok");
+////        button.addActionListener(this);
+////        jFrame.add(button,BorderLayout.PAGE_END);
+//
+//                JTextArea jtextArea = new JTextArea();
+//                jtextArea.append("Hello World\n");
+//
+//                for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
+//                    Item task = lists.getMasterList().getMasterList().get(i);
+//                    if (task.getStatus()) {
+//                        jtextArea.append(task.getName() + " Status: Complete " + task.getType() + "\n");
+//                    } else {
+//                        jtextArea.append(task.getName() + " Status: Not Complete " + task.getType() + "\n");
+//                    }
+//                }
+//
+//                jframe.add(jtextArea,BorderLayout.CENTER );
+//                jframe.setVisible(true);
                 jframe = new JFrame();
                 jframe.setSize(1500, 400);
-                jframe.setLayout(new BorderLayout());
+                jframe.setLayout(gbl);
+                gbc.insets = new Insets(5,5,5,5);
 
-//        JButton button = new JButton("HERE IS THE BUTTON");
-//        button.setActionCommand("ok");
-//        button.addActionListener(this);
-//        jFrame.add(button,BorderLayout.PAGE_END);
+                JButton button = new JButton("OK");
+                button.setActionCommand("PrinterOK");
+                button.addActionListener(this);
+
+                gbc.gridx = 1;
+                gbc.gridy = 4;
+                jframe.add(button,gbc);
 
                 JTextArea jtextArea = new JTextArea();
-                jtextArea.append("Hello World\n");
-
                 for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
                     Item task = lists.getMasterList().getMasterList().get(i);
-                    if (task.getStatus()) {
-                        jtextArea.append(task.getName() + " Status: Complete " + task.getType() + "\n");
-                    } else {
-                        jtextArea.append(task.getName() + " Status: Not Complete " + task.getType() + "\n");
+                    jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+                    //https://stackoverflow.com/questions/29147709/aligning-text-in-jtextarea-in-java
+
+                    jtextArea.append(String.format("%d. %-30s %-30s %-30s", i + 1, task.getName(),
+                            task.getStatus() ? "Status: Complete" : "Status: Not Complete", "Type: " + task.getType()));
+
+//                    if (task.getStatus()) {
+//                        jtextArea.append(task.getName() + " Status: Complete " + task.getType());
+//                    } else {
+//                        jtextArea.append(task.getName() + " Status: Not Complete " + task.getType());
+//                    }
+//
+                    if (i < lists.getMasterList().getMasterList().size() - 1) {
+                        jtextArea.append("\n");
                     }
                 }
+                gbc.gridx = 1;
+                gbc.gridy = 2;
+                jframe.add(jtextArea,gbc);
 
-                jframe.add(jtextArea,BorderLayout.CENTER );
                 jframe.setVisible(true);
+
+
+
             }
             if (b1input.equals("4")) {
                 frame.remove(label);
@@ -344,7 +428,8 @@ public class GraphicalInterface implements ActionListener {
                     selection = 2;
                     output = "Perfect! You're school task was added to the list";
                     break;
-                case "Work":
+                //work
+                default:
                     selection = 3;
                     output = "Perfect! You're work task was added to the list";
             }
@@ -420,6 +505,10 @@ public class GraphicalInterface implements ActionListener {
             frame.remove(field);
             frame.repaint();
             setupMain();
+        }
+
+        if (e.getActionCommand().equals("PrinterOK")) {
+            jframe.dispose();
         }
 
     }

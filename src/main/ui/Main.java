@@ -1,8 +1,5 @@
 package ui;
 
-import model.Lists;
-import network.GetLocation;
-import network.GetTime;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -18,7 +15,9 @@ public class Main {
 //        ListInterface listInterface = new ListInterface();
 //        listInterface.run();
 
-        GraphicalInterface graphicalInterface = new GraphicalInterface();
+        //GraphicalInterface graphicalInterface = new GraphicalInterface();
+
+        Visuals visuals = new Visuals();
 
 
     }
