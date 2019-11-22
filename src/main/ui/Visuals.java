@@ -21,7 +21,7 @@ public class Visuals implements ActionListener {
     JButton button3;
     JButton button4;
     JButton button5;
-    JButton buttont;
+
 
     GridBagLayout gbl;
     GridBagConstraints gbc;
@@ -56,380 +56,466 @@ public class Visuals implements ActionListener {
     public void setupMain() {
 
         label = new JLabel("Please select an option:");
-        gbc.gridx = 1;
-        gbc.gridy = 0;
+//        gbc.gridx = 1;
+//        gbc.gridy = 0;
 
-        frame.add(label,gbc);
+        frame.add(label, positionZero());
 
         button1 = new JButton("Add Item");
-        button1.setPreferredSize(new Dimension(130, 20));
-        button1.setActionCommand("AddItem");
-        button1.addActionListener(this);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
+        setupButton(button1, "AddItem", frame, positionOne());
+//        button1.setPreferredSize(new Dimension(130, 20));
+//        button1.setActionCommand("AddItem");
+//        button1.addActionListener(this);
+//        gbc.gridx = 1;
+//        gbc.gridy = 1;
 
-        frame.add(button1,gbc);
+//        frame.add(button1, positionOne());
 
         button2 = new JButton("Cross Off Item");
-        button2.setPreferredSize(new Dimension(130, 20));
-        button2.setActionCommand("CrossOffItem");
-        button2.addActionListener(this);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
+        setupButton(button2, "CrossOffItem", frame, positionTwo());
+//        button2.setPreferredSize(new Dimension(130, 20));
+//        button2.setActionCommand("CrossOffItem");
+//        button2.addActionListener(this);
+//        gbc.gridx = 1;
+//        gbc.gridy = 2;
 
-        frame.add(button2,gbc);
+//        frame.add(button2,positionTwo());
 
         button3 = new JButton("Show All Items");
-        button3.setPreferredSize(new Dimension(130, 20));
-        button3.setActionCommand("ShowAllItems");
-        button3.addActionListener(this);
-        gbc.gridx = 1;
-        gbc.gridy = 3;
+        setupButton(button3, "ShowAllItems", frame, positionThree());
+//        button3.setPreferredSize(new Dimension(130, 20));
+//        button3.setActionCommand("ShowAllItems");
+//        button3.addActionListener(this);
+//        gbc.gridx = 1;
+//        gbc.gridy = 3;
 
-        frame.add(button3,gbc);
+//        frame.add(button3,positionThree());
 
         button4 = new JButton("Load Data");
-        button4.setPreferredSize(new Dimension(130, 20));
-        button4.setActionCommand("LoadData");
-        button4.addActionListener(this);
-        gbc.gridx = 1;
-        gbc.gridy = 4;
+        setupButton(button4, "LoadData", frame, positionFour());
+//        button4.setPreferredSize(new Dimension(130, 20));
+//        button4.setActionCommand("LoadData");
+//        button4.addActionListener(this);
+//        gbc.gridx = 1;
+//        gbc.gridy = 4;
 
-        frame.add(button4,gbc);
+//        frame.add(button4,positionFour());
 
         button5 = new JButton("Save and Quit");
-        button5.setPreferredSize(new Dimension(130, 20));
-        button5.setActionCommand("SaveQuit");
-        button5.addActionListener(this);
-        gbc.gridx = 1;
-        gbc.gridy = 5;
+        setupButton(button5, "SaveQuit", frame, positionFive());
+//        button5.setPreferredSize(new Dimension(130, 20));
+//        button5.setActionCommand("SaveQuit");
+//        button5.addActionListener(this);
+//        gbc.gridx = 1;
+//        gbc.gridy = 5;
 
-        frame.add(button5,gbc);
+//        frame.add(button5,positionFive());
         frame.setVisible(true);
 
 
     }
 
+    private GridBagConstraints positionZero() {
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        return gbc;
+    }
+
+    private GridBagConstraints positionOne() {
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        return gbc;
+    }
+
+    private GridBagConstraints positionTwo() {
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        return gbc;
+    }
+
+    private GridBagConstraints positionThree() {
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        return gbc;
+    }
+
+    private GridBagConstraints positionFour() {
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        return gbc;
+    }
+
+    private GridBagConstraints positionFive() {
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        return gbc;
+    }
+
+    private void setupButton(JButton b, String ac, JFrame jf, GridBagConstraints c) {
+        b.setPreferredSize(new Dimension(130, 20));
+        b.setActionCommand(ac);
+        b.addActionListener(this);
+        jf.add(b,c);
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("AddItem")) {
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(button2);
-            frame.remove(button3);
-            frame.remove(button4);
-            frame.remove(button5);
-            response.setText("");
-            frame.repaint();
-
-
-            label = new JLabel("What would you like to enter:");
-            label.setFont(new Font("monospaced", Font.PLAIN, 14));
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            frame.add(label, gbc);
-
-            button1 = new JButton("Personal Task");
-            button1.setPreferredSize(new Dimension(130, 20));
-            button1.setActionCommand("PersonalTask");
-            button1.addActionListener(this);
-            gbc.gridx = 1;
-            gbc.gridy = 1;
-            frame.add(button1,gbc);
-
-            button2 = new JButton("School Task");
-            button2.setPreferredSize(new Dimension(130, 20));
-            button2.setActionCommand("SchoolTask");
-            button2.addActionListener(this);
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-            frame.add(button2,gbc);
-
-            button3 = new JButton("Work Task");
-            button3.setPreferredSize(new Dimension(130, 20));
-            button3.setActionCommand("WorkTask");
-            button3.addActionListener(this);
-            gbc.gridx = 1;
-            gbc.gridy = 3;
-            frame.add(button3,gbc);
-
-
-            frame.setVisible(true);
+            addItem();
+            //DELETE
+//            mainFrameRemove();
+//
+//
+//            label = new JLabel("What would you like to enter:");
+//            label.setFont(new Font("monospaced", Font.PLAIN, 14));
+////            gbc.gridx = 1;
+////            gbc.gridy = 0;
+//            frame.add(label, positionZero());
+//
+//            button1 = new JButton("Personal Task");
+//            setupButton(button1,"PersonalTask", frame, positionOne());
+//            //button1.setPreferredSize(new Dimension(130, 20));
+////            button1.setActionCommand("PersonalTask");
+////            button1.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 1;
+////            frame.add(button1, positionOne());
+//
+//            button2 = new JButton("School Task");
+//            setupButton(button2, "SchoolTask", frame, positionTwo());
+//            //button2.setPreferredSize(new Dimension(130, 20));
+////            button2.setActionCommand("SchoolTask");
+////            button2.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+////            frame.add(button2,positionTwo());
+//
+//            button3 = new JButton("Work Task");
+//            setupButton(button3, "WorkTask", frame, positionThree());
+//            //button3.setPreferredSize(new Dimension(130, 20));
+////            button3.setActionCommand("WorkTask");
+////            button3.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 3;
+////            frame.add(button3,positionThree());
+//
+//
+//            frame.setVisible(true);
         }
 
         if (e.getActionCommand().equals("CrossOffItem")) {
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(button2);
-            frame.remove(button3);
-            frame.remove(button4);
-            frame.remove(button5);
-            response.setText("");
-            frame.repaint();
-
-            jframe = new JFrame();
-            jframe.setSize(1500, 400);
-            jframe.setLayout(gbl);
-            gbc.insets = new Insets(5,5,5,5);
-
-            JButton button = new JButton("OK");
-            button.setActionCommand("PrinterOK");
-            button.addActionListener(this);
-
-            gbc.gridx = 1;
-            gbc.gridy = 4;
-            jframe.add(button,gbc);
-
-            JTextArea jtextArea = new JTextArea();
-
-            int counter = 0;
-            for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
-                Item task = lists.getMasterList().getMasterList().get(i);
-                jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
-                if (task.getStatus() == false) {
-                    counter++;
-                    jtextArea.append(String.format("%d. %-20s\n", counter, task.getName()));
-                }
-            }
-
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-            jframe.add(jtextArea,gbc);
-
-
-
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            label = new JLabel("Please enter number of item you would like to cross off.");
-            label.setFont(new Font("monospaced", Font.PLAIN, 14));
-            frame.add(label, gbc);
-
-            field = new JTextField(10);
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-
-            frame.add(field, gbc);
-
-            button1 = new JButton("Cross Off");
-            button1.setActionCommand("crossOff");
-            button1.addActionListener(this);
-            gbc.gridx = 1;
-            gbc.gridy = 3;
-            frame.add(button1, gbc);
-
-            frame.setVisible(true);
-            jframe.setVisible(true);
+            crossOffItem();
+            //DELETE
+//            mainFrameRemove();
+//
+//            jframe = new JFrame();
+//            jframe.setSize(1500, 400);
+//            jframe.setLayout(gbl);
+//            gbc.insets = new Insets(5,5,5,5);
+//
+//            JButton button = new JButton("OK");
+//            setupButton(button, "PrinterOK", jframe, positionFour());
+////            button.setActionCommand("PrinterOK");
+////            button.addActionListener(this);
+////
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 4;
+////            jframe.add(button,positionFour());
+//
+//            JTextArea jtextArea = new JTextArea();
+//
+//            int counter = 0;
+//            for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
+//                Item task = lists.getMasterList().getMasterList().get(i);
+//                jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+//                if (task.getStatus() == false) {
+//                    counter++;
+//                    jtextArea.append(String.format("%d. %-20s\n", counter, task.getName()));
+//                }
+//            }
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//            jframe.add(jtextArea,positionTwo());
+//
+//
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 0;
+//            label = new JLabel("Please enter number of item you would like to cross off.");
+//            label.setFont(new Font("monospaced", Font.PLAIN, 14));
+//            frame.add(label, positionZero());
+//
+//            field = new JTextField(10);
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//
+//            frame.add(field, positionTwo());
+//
+//            button1 = new JButton("Cross Off");
+//            setupButton(button1, "crossOff", frame,positionThree());
+////            button1.setActionCommand("crossOff");
+////            button1.addActionListener(this);
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 3;
+////            frame.add(button1, positionThree());
+//
+//            frame.setVisible(true);
+//            jframe.setVisible(true);
         }
 
         if (e.getActionCommand().equals("ShowAllItems")) {
-            jframe = new JFrame();
-            jframe.setSize(1500, 400);
-            jframe.setLayout(gbl);
-            gbc.insets = new Insets(5,5,5,5);
-
-            JButton button = new JButton("OK");
-            button.setActionCommand("PrinterOK");
-            button.addActionListener(this);
-
-            gbc.gridx = 1;
-            gbc.gridy = 4;
-            jframe.add(button,gbc);
-
-            JTextArea jtextArea = new JTextArea();
-            for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
-                Item task = lists.getMasterList().getMasterList().get(i);
-                jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
-                //https://stackoverflow.com/questions/29147709/aligning-text-in-jtextarea-in-java
-
-                jtextArea.append(String.format("%d. %-30s %-30s %-30s", i + 1, task.getName(),
-                        task.getStatus() ? "Status: Complete" : "Status: Not Complete", "Type: " + task.getType()));
-
-                if (i < lists.getMasterList().getMasterList().size() - 1) {
-                    jtextArea.append("\n");
-                }
-            }
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-            jframe.add(jtextArea,gbc);
-
-            jframe.setVisible(true);
+            showAllItems();
+            //DELETE
+//            jframe = new JFrame();
+//            jframe.setSize(1500, 400);
+//            jframe.setLayout(gbl);
+//            gbc.insets = new Insets(5,5,5,5);
+//
+//            JButton button = new JButton("OK");
+//            setupButton(button, "PrinterOK", jframe, positionFour());
+////            button.setActionCommand("PrinterOK");
+////            button.addActionListener(this);
+////
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 4;
+////            jframe.add(button,positionFour());
+//
+//            JTextArea jtextArea = new JTextArea();
+//            for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
+//                Item task = lists.getMasterList().getMasterList().get(i);
+//                jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+//                //https://stackoverflow.com/questions/29147709/aligning-text-in-jtextarea-in-java
+//
+//                jtextArea.append(String.format("%d. %-30s %-30s %-30s", i + 1, task.getName(),
+//                        task.getStatus() ? "Status: Complete" : "Status: Not Complete", "Type: " + task.getType()));
+//
+//                if (i < lists.getMasterList().getMasterList().size() - 1) {
+//                    jtextArea.append("\n");
+//                }
+//            }
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//            jframe.add(jtextArea,positionTwo());
+//
+//            jframe.setVisible(true);
         }
 
         if (e.getActionCommand().equals("LoadData")) {
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(button2);
-            frame.remove(button3);
-            frame.remove(button4);
-            frame.remove(button5);
-            response.setText("");
-            frame.repaint();
+            loadData();
 
+            // DELETE
+//            mainFrameRemove();
+//
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 0;
+//            label = new JLabel("Please enter the name of the file?");
+//            label.setFont(new Font("monospaced", Font.PLAIN, 14));
+//            frame.add(label, positionZero());
+//
+//            field = new JTextField(10);
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//
+//            frame.add(field, positionTwo());
+//
+//            button1 = new JButton("Enter");
+//            setupButton(button1, "FileEntryLoad", frame, positionThree());
+////            button1.setActionCommand("FileEntryLoad");
+////            button1.addActionListener(this);
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 3;
+////            frame.add(button1, positionThree());
+//
+//            frame.setVisible(true);
+        }
 
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            label = new JLabel("Please enter the name of the file?");
-            label.setFont(new Font("monospaced", Font.PLAIN, 14));
-            frame.add(label, gbc);
+        actionPerfomedContinueOne(e);
+    }
 
-            field = new JTextField(10);
-            gbc.gridx = 1;
-            gbc.gridy = 2;
+    public void actionPerfomedContinueOne(ActionEvent e) {
 
-            frame.add(field, gbc);
+        if (e.getActionCommand().equals("SaveQuit")) {
+            saveAndQuit();
 
-            button1 = new JButton("Enter");
-            button1.setActionCommand("FileEntryLoad");
-            button1.addActionListener(this);
-            gbc.gridx = 1;
-            gbc.gridy = 3;
-            frame.add(button1, gbc);
-
-            frame.setVisible(true);
+            // DELETE
+//            mainFrameRemove();
+//
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 0;
+//            label = new JLabel("Please enter a file name?");
+//            label.setFont(new Font("monospaced", Font.PLAIN, 14));
+//            frame.add(label, positionZero());
+//
+//            field = new JTextField(10);
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//
+//            frame.add(field, positionTwo());
+//
+//            button1 = new JButton("Enter");
+//            setupButton(button1, "FileEntryQuit", frame, positionThree());
+////            button1.setActionCommand("FileEntryQuit");
+////            button1.addActionListener(this);
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 3;
+////            frame.add(button1, positionThree());
+//
+//            frame.setVisible(true);
         }
 
         if (e.getActionCommand().equals("PersonalTask")) {
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(button2);
-            frame.remove(button3);
+            personalTask();
 
-            frame.repaint();
-
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            label = new JLabel("Please enter your personal task");
-            label.setFont(new Font("monospaced", Font.PLAIN, 14));
-            frame.add(label, gbc);
-
-            field = new JTextField(10);
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-
-            frame.add(field, gbc);
-
-            button1 = new JButton("Enter");
-            button1.setActionCommand("Personal");
-            button1.addActionListener(this);
-            gbc.gridx = 1;
-            gbc.gridy = 3;
-            frame.add(button1, gbc);
-
-            frame.setVisible(true);
+            //DELETE
+//            addItemFrameRemove();
+//
+//            frame.repaint();
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 0;
+//            label = new JLabel("Please enter your personal task");
+//            label.setFont(new Font("monospaced", Font.PLAIN, 14));
+//            frame.add(label, positionZero());
+//
+//            field = new JTextField(10);
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//
+//            frame.add(field, positionTwo());
+//
+//            button1 = new JButton("Enter");
+//            setupButton(button1, "Personal", frame, positionThree());
+////            button1.setActionCommand("Personal");
+////            button1.addActionListener(this);
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 3;
+////            frame.add(button1, positionThree());
+//
+//            frame.setVisible(true);
         }
 
         if (e.getActionCommand().equals("SchoolTask")) {
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(button2);
-            frame.remove(button3);
+            schoolTask();
 
-            frame.repaint();
-
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            label = new JLabel("Please enter your school task");
-            label.setFont(new Font("monospaced", Font.PLAIN, 14));
-            frame.add(label, gbc);
-
-            field = new JTextField(10);
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-
-            frame.add(field, gbc);
-
-            button1 = new JButton("Enter");
-            button1.setActionCommand("School");
-            button1.addActionListener(this);
-            gbc.gridx = 1;
-            gbc.gridy = 3;
-            frame.add(button1, gbc);
-
-            frame.setVisible(true);
+            //DELETE
+//            addItemFrameRemove();
+//
+//            frame.repaint();
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 0;
+//            label = new JLabel("Please enter your school task");
+//            label.setFont(new Font("monospaced", Font.PLAIN, 14));
+//            frame.add(label, positionZero());
+//
+//            field = new JTextField(10);
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//
+//            frame.add(field, positionTwo());
+//
+//            button1 = new JButton("Enter");
+//            setupButton(button1, "School", frame, positionThree());
+////            button1.setActionCommand("School");
+////            button1.addActionListener(this);
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 3;
+////            frame.add(button1, positionThree());
+//
+//            frame.setVisible(true);
         }
 
         if (e.getActionCommand().equals("WorkTask")) {
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(button2);
-            frame.remove(button3);
+            workTask();
 
-            frame.repaint();
-
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            label = new JLabel("Please enter your work task");
-            label.setFont(new Font("monospaced", Font.PLAIN, 14));
-            frame.add(label, gbc);
-
-            field = new JTextField(10);
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-
-            frame.add(field, gbc);
-
-            button1 = new JButton("Enter");
-            button1.setActionCommand("Work");
-            button1.addActionListener(this);
-            gbc.gridx = 1;
-            gbc.gridy = 3;
-            frame.add(button1, gbc);
-
-            frame.setVisible(true);
+            //DELETE
+//            addItemFrameRemove();
+//
+//            frame.repaint();
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 0;
+//            label = new JLabel("Please enter your work task");
+//            label.setFont(new Font("monospaced", Font.PLAIN, 14));
+//            frame.add(label, positionZero());
+//
+//            field = new JTextField(10);
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//
+//            frame.add(field, positionTwo());
+//
+//            button1 = new JButton("Enter");
+//            setupButton(button1, "Work", frame, positionThree());
+////            button1.setActionCommand("Work");
+////            button1.addActionListener(this);
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 3;
+////            frame.add(button1, positionThree());
+//
+//            frame.setVisible(true);
         }
 
-        if (e.getActionCommand().equals("Personal") || e.getActionCommand().equals("School") || e.getActionCommand().equals("Work")) {
+        actionPerfomedContinueTwo(e);
+    }
 
-            String input = field.getText();
-            String output = "";
+    public void actionPerfomedContinueTwo(ActionEvent e) {
 
-            int selection = 0;
-            switch (e.getActionCommand()) {
-                case "Personal":
-                    output = "Perfect! You're personal task was added to the list!";
-                    selection = 1;
-                    break;
-                case "School":
-                    selection = 2;
-                    output = "Perfect! You're school task was added to the list!";
-                    break;
-                //work
-                default:
-                    selection = 3;
-                    output = "Perfect! You're work task was added to the list!";
-            }
+        if (e.getActionCommand().equals("Personal")
+                || e.getActionCommand().equals("School")
+                || e.getActionCommand().equals("Work")) {
 
-            try {
-                lists.addItem(input,selection);
-                response.setText(output);
-            } catch (TooManyThingsToDoException ex) {
-                response.setText("Sorry! You have to many uncompleted tasks! Task not added!");
-            }
+            addTask(e.getActionCommand());
 
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(field);
-            frame.repaint();
-            setupMain();
+            // DELETE
+//            String input = field.getText();
+//            String output = "";
+//
+//            int selection = 0;
+//            switch (e.getActionCommand()) {
+//                case "Personal":
+//                    output = "Perfect! You're personal task was added to the list!";
+//                    selection = 1;
+//                    break;
+//                case "School":
+//                    selection = 2;
+//                    output = "Perfect! You're school task was added to the list!";
+//                    break;
+//                //work
+//                default:
+//                    selection = 3;
+//                    output = "Perfect! You're work task was added to the list!";
+//            }
+//
+//            try {
+//                lists.addItem(input,selection);
+//                response.setText(output);
+//            } catch (TooManyThingsToDoException ex) {
+//                response.setText("Sorry! You have to many uncompleted tasks! Task not added!");
+//            }
+//
+//            gotoMainFrame();
         }
 
         if (e.getActionCommand().equals("crossOff")) {
-            String input = field.getText();
-            int selection = Integer.parseInt(input);
-
-            try {
-                lists.crossOff(selection);
-            } catch (NothingToCrossOffException ex) {
-                response.setText("There's Nothing to Cross Off!");
-            } catch (NoSuchItemExistsException ex) {
-                response.setText("Looks like you entered an invalid number!");
-            }
-
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(field);
-            frame.repaint();
-            setupMain();
+            crossOff();
+            //DELETE
+//            String input = field.getText();
+//            int selection = Integer.parseInt(input);
+//
+//            try {
+//                lists.crossOff(selection);
+//            } catch (NothingToCrossOffException ex) {
+//                response.setText("There's Nothing to Cross Off!");
+//            } catch (NoSuchItemExistsException ex) {
+//                response.setText("Looks like you entered an invalid number!");
+//            }
+//
+//            gotoMainFrame();
         }
 
         if (e.getActionCommand().equals("PrinterOK")) {
@@ -437,23 +523,452 @@ public class Visuals implements ActionListener {
         }
 
         if (e.getActionCommand().equals("FileEntryLoad")) {
-            String input = field.getText();
-
-            try {
-                lists.loadData(input);
-            } catch (IOException ex) {
-                response.setText("Looks like that file does not exist");
-            }
-
-            frame.remove(label);
-            frame.remove(button1);
-            frame.remove(field);
-            frame.repaint();
-            setupMain();
+            fileEntryLoad();
+            //DELETE
+//            String input = field.getText();
+//
+//            try {
+//                lists.loadData(input);
+//            } catch (IOException ex) {
+//                response.setText("Looks like that file does not exist");
+//            }
+//
+//            gotoMainFrame();
 
         }
 
+        if (e.getActionCommand().equals("FileEntryQuit")) {
+            fileEntryQuit();
+            //DELETE
+//            String input = field.getText();
+//
+//            try {
+//                lists.saveData(input);
+//            } catch (IOException ex) {
+//                ex.printStackTrace();
+//            }
+//
+//            gotoMainFrame();
+//            System.exit(0);
+        }
+
+    }
+
+    private void mainFrameRemove() {
+        frame.remove(label);
+        frame.remove(button1);
+        frame.remove(button2);
+        frame.remove(button3);
+        frame.remove(button4);
+        frame.remove(button5);
+        response.setText("");
+        frame.repaint();
+    }
+
+    private void addItemFrameRemove() {
+        frame.remove(label);
+        frame.remove(button1);
+        frame.remove(button2);
+        frame.remove(button3);
+    }
+
+    private void gotoMainFrame() {
+        frame.remove(label);
+        frame.remove(button1);
+        frame.remove(field);
+        frame.repaint();
+        setupMain();
+    }
+
+    private void addItem() {
+        mainFrameRemove();
 
 
+        label = new JLabel("What would you like to enter:");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
+//            gbc.gridx = 1;
+//            gbc.gridy = 0;
+        frame.add(label, positionZero());
+
+        button1 = new JButton("Personal Task");
+        setupButton(button1,"PersonalTask", frame, positionOne());
+        //button1.setPreferredSize(new Dimension(130, 20));
+//            button1.setActionCommand("PersonalTask");
+//            button1.addActionListener(this);
+//            gbc.gridx = 1;
+//            gbc.gridy = 1;
+//            frame.add(button1, positionOne());
+
+        button2 = new JButton("School Task");
+        setupButton(button2, "SchoolTask", frame, positionTwo());
+        //button2.setPreferredSize(new Dimension(130, 20));
+//            button2.setActionCommand("SchoolTask");
+//            button2.addActionListener(this);
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+//            frame.add(button2,positionTwo());
+
+        button3 = new JButton("Work Task");
+        setupButton(button3, "WorkTask", frame, positionThree());
+        //button3.setPreferredSize(new Dimension(130, 20));
+//            button3.setActionCommand("WorkTask");
+//            button3.addActionListener(this);
+//            gbc.gridx = 1;
+//            gbc.gridy = 3;
+//            frame.add(button3,positionThree());
+
+
+        frame.setVisible(true);
+
+    }
+
+    private void crossOffItem() {
+        mainFrameRemove();
+        setupJframeCO();
+
+//        jframe = new JFrame();
+//        jframe.setSize(1500, 400);
+//        jframe.setLayout(gbl);
+//        gbc.insets = new Insets(5,5,5,5);
+//
+//        JButton button = new JButton("OK");
+//        setupButton(button, "PrinterOK", jframe, positionFour());
+////            button.setActionCommand("PrinterOK");
+////            button.addActionListener(this);
+////
+//////            gbc.gridx = 1;
+//////            gbc.gridy = 4;
+////            jframe.add(button,positionFour());
+//
+//        JTextArea jtextArea = new JTextArea();
+//
+//        int counter = 0;
+//        for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
+//            Item task = lists.getMasterList().getMasterList().get(i);
+//            jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+//            if (task.getStatus() == false) {
+//                counter++;
+//                jtextArea.append(String.format("%d. %-20s\n", counter, task.getName()));
+//            }
+//        }
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 2;
+//        jframe.add(jtextArea,positionTwo());
+
+
+
+//            gbc.gridx = 1;
+//            gbc.gridy = 0;
+        label = new JLabel("Please enter number of item you would like to cross off.");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
+        frame.add(label, positionZero());
+
+        field = new JTextField(10);
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+
+        frame.add(field, positionTwo());
+
+        button1 = new JButton("Cross Off");
+        setupButton(button1, "crossOff", frame,positionThree());
+//            button1.setActionCommand("crossOff");
+//            button1.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 3;
+//            frame.add(button1, positionThree());
+
+        frame.setVisible(true);
+        jframe.setVisible(true);
+
+    }
+
+    private void setupJframeCO() {
+        jframe = new JFrame();
+        jframe.setSize(1500, 400);
+        jframe.setLayout(gbl);
+        gbc.insets = new Insets(5,5,5,5);
+
+        JButton button = new JButton("OK");
+        setupButton(button, "PrinterOK", jframe, positionFour());
+//            button.setActionCommand("PrinterOK");
+//            button.addActionListener(this);
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 4;
+//            jframe.add(button,positionFour());
+
+        JTextArea jtextArea = new JTextArea();
+
+        int counter = 0;
+        for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
+            Item task = lists.getMasterList().getMasterList().get(i);
+            jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+            if (task.getStatus() == false) {
+                counter++;
+                jtextArea.append(String.format("%d. %-20s\n", counter, task.getName()));
+            }
+        }
+
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+        jframe.add(jtextArea,positionTwo());
+
+    }
+
+    private void showAllItems() {
+        jframe = new JFrame();
+        jframe.setSize(1500, 400);
+        jframe.setLayout(gbl);
+        gbc.insets = new Insets(5,5,5,5);
+
+        JButton button = new JButton("OK");
+        setupButton(button, "PrinterOK", jframe, positionFour());
+//            button.setActionCommand("PrinterOK");
+//            button.addActionListener(this);
+//
+////            gbc.gridx = 1;
+////            gbc.gridy = 4;
+//            jframe.add(button,positionFour());
+
+        JTextArea jtextArea = new JTextArea();
+        for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
+            Item task = lists.getMasterList().getMasterList().get(i);
+            jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+            //https://stackoverflow.com/questions/29147709/aligning-text-in-jtextarea-in-java
+
+            jtextArea.append(String.format("%d. %-30s %-30s %-30s", i + 1, task.getName(),
+                    task.getStatus() ? "Status: Complete" : "Status: Not Complete", "Type: " + task.getType()));
+
+            if (i < lists.getMasterList().getMasterList().size() - 1) {
+                jtextArea.append("\n");
+            }
+        }
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+        jframe.add(jtextArea,positionTwo());
+
+        jframe.setVisible(true);
+
+    }
+
+    private void loadData() {
+        mainFrameRemove();
+
+
+//            gbc.gridx = 1;
+//            gbc.gridy = 0;
+        label = new JLabel("Please enter the name of the file?");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
+        frame.add(label, positionZero());
+
+        field = new JTextField(10);
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+
+        frame.add(field, positionTwo());
+
+        button1 = new JButton("Enter");
+        setupButton(button1, "FileEntryLoad", frame, positionThree());
+//            button1.setActionCommand("FileEntryLoad");
+//            button1.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 3;
+//            frame.add(button1, positionThree());
+
+        frame.setVisible(true);
+    }
+
+    private void saveAndQuit() {
+        mainFrameRemove();
+
+
+//            gbc.gridx = 1;
+//            gbc.gridy = 0;
+        label = new JLabel("Please enter a file name?");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
+        frame.add(label, positionZero());
+
+        field = new JTextField(10);
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+
+        frame.add(field, positionTwo());
+
+        button1 = new JButton("Enter");
+        setupButton(button1, "FileEntryQuit", frame, positionThree());
+//            button1.setActionCommand("FileEntryQuit");
+//            button1.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 3;
+//            frame.add(button1, positionThree());
+
+        frame.setVisible(true);
+    }
+
+    private void personalTask() {
+        addItemFrameRemove();
+
+        frame.repaint();
+
+//            gbc.gridx = 1;
+//            gbc.gridy = 0;
+        label = new JLabel("Please enter your personal task");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
+        frame.add(label, positionZero());
+
+        field = new JTextField(10);
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+
+        frame.add(field, positionTwo());
+
+        button1 = new JButton("Enter");
+        setupButton(button1, "Personal", frame, positionThree());
+//            button1.setActionCommand("Personal");
+//            button1.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 3;
+//            frame.add(button1, positionThree());
+
+        frame.setVisible(true);
+    }
+
+    private void schoolTask() {
+        addItemFrameRemove();
+
+        frame.repaint();
+
+//            gbc.gridx = 1;
+//            gbc.gridy = 0;
+        label = new JLabel("Please enter your school task");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
+        frame.add(label, positionZero());
+
+        field = new JTextField(10);
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+
+        frame.add(field, positionTwo());
+
+        button1 = new JButton("Enter");
+        setupButton(button1, "School", frame, positionThree());
+//            button1.setActionCommand("School");
+//            button1.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 3;
+//            frame.add(button1, positionThree());
+
+        frame.setVisible(true);
+    }
+
+    private void workTask() {
+        addItemFrameRemove();
+
+        frame.repaint();
+
+//            gbc.gridx = 1;
+//            gbc.gridy = 0;
+        label = new JLabel("Please enter your work task");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
+        frame.add(label, positionZero());
+
+        field = new JTextField(10);
+//            gbc.gridx = 1;
+//            gbc.gridy = 2;
+
+        frame.add(field, positionTwo());
+
+        button1 = new JButton("Enter");
+        setupButton(button1, "Work", frame, positionThree());
+//            button1.setActionCommand("Work");
+//            button1.addActionListener(this);
+////            gbc.gridx = 1;
+////            gbc.gridy = 3;
+//            frame.add(button1, positionThree());
+
+        frame.setVisible(true);
+    }
+
+    private void addTask(String ac) {
+        String input = field.getText();
+        String output = "";
+
+        int selection = 0;
+        if (ac.equals("Personal")) {
+//            output = "Perfect! You're personal task was added to the list!";
+            selection = 1;
+        } else if (ac.equals("School")) {
+            selection = 2;
+//            output = "Perfect! You're school task was added to the list!";
+        } else if (ac.equals("Work")) {
+            selection = 3;
+//            output = "Perfect! You're work task was added to the list!";
+        }
+
+
+//        switch (ac) {
+//            case "Personal":
+//                output = "Perfect! You're personal task was added to the list!";
+//                selection = 1;
+//                break;
+//            case "School":
+//                selection = 2;
+//                output = "Perfect! You're school task was added to the list!";
+//                break;
+//            //work
+//            default:
+//                selection = 3;
+//                output = "Perfect! You're work task was added to the list!";
+//        }
+
+        try {
+            lists.addItem(input,selection);
+            response.setText("Perfect! Your " + ac.toLowerCase() + " task was added to the list!");
+        } catch (TooManyThingsToDoException ex) {
+            response.setText("Sorry! You have to many uncompleted tasks! Task not added!");
+        }
+
+        gotoMainFrame();
+    }
+
+    private void crossOff() {
+        String input = field.getText();
+        int selection = Integer.parseInt(input);
+
+        try {
+            lists.crossOff(selection);
+        } catch (NothingToCrossOffException ex) {
+            response.setText("There's Nothing to Cross Off!");
+        } catch (NoSuchItemExistsException ex) {
+            response.setText("Looks like you entered an invalid number!");
+        }
+
+        gotoMainFrame();
+    }
+
+    private void fileEntryLoad() {
+        String input = field.getText();
+
+        try {
+            lists.loadData(input);
+        } catch (IOException ex) {
+            response.setText("Looks like that file does not exist");
+        }
+
+        gotoMainFrame();
+    }
+
+    private void fileEntryQuit() {
+        String input = field.getText();
+
+        try {
+            lists.saveData(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        gotoMainFrame();
+        System.exit(0);
     }
 }
