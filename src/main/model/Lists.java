@@ -108,7 +108,7 @@ public class Lists extends Subject implements Loadable, Saveable {
     // MODIFIES: this
     // EFFECTS: Item is added to masterList.
     public void addItem(Item task) throws TooManyThingsToDoException {
-        if (masterList.masterListSize() - crossedOff.crossedOffSize() == 5) {
+        if (masterList.masterListSize() - crossedOff.crossedOffSize() >= 5) {
             throw new TooManyThingsToDoException();
         }
 

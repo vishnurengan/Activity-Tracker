@@ -9,8 +9,20 @@ import model.Lists;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.concurrent.CountDownLatch;
+import javax.sound.sampled.*;
 import javax.swing.*;
+
+//Resources :
+// https://stackoverflow.com/questions/26290738/how-does-gridwidth-and-gridheight-work-java-guid-gridbaglayout
+// https://www.javatpoint.com/java-gridbaglayout
+// https://stackoverflow.com/questions/53468606/java-getaudioinputstream-trying-to-read-audio-file-getting-javax-sound-sampled
+// http://soundbible.com/1127-Computer-Error.html
+// https://stackoverflow.com/questions/22035768/javax-sound-sampled-clip-terminating-before-playing-sound
+// http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
 
 public class Visuals implements ActionListener {
 
@@ -28,6 +40,9 @@ public class Visuals implements ActionListener {
     JLabel label;
     JLabel response;
     JTextField field;
+    JTextArea jtextArea;
+
+    final CountDownLatch clipDone = new CountDownLatch(1);
 
     private Lists lists;
 
@@ -35,7 +50,7 @@ public class Visuals implements ActionListener {
         lists = new Lists();
         frame = new JFrame("To Do List");
 
-        frame.setSize(1500, 400);
+        frame.setSize(500, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         gbl = new GridBagLayout();
@@ -53,7 +68,7 @@ public class Visuals implements ActionListener {
 
     }
 
-    public void setupMain() {
+    private void setupMain() {
 
         label = new JLabel("Please select an option:");
 //        gbc.gridx = 1;
@@ -205,7 +220,8 @@ public class Visuals implements ActionListener {
         }
 
         if (e.getActionCommand().equals("CrossOffItem")) {
-            crossOffItem();
+            setupJframeCO();
+            //crossOffItem();
             //DELETE
 //            mainFrameRemove();
 //
@@ -624,13 +640,54 @@ public class Visuals implements ActionListener {
 
     private void crossOffItem() {
         mainFrameRemove();
-        setupJframeCO();
 
+        label = new JLabel("Please enter number of item you would like to cross off.");
+        label.setFont(new Font("monospaced", Font.PLAIN, 14));
+        frame.add(label, positionZero());
+
+        field = new JTextField(10);
+        frame.add(field, positionTwo());
+
+        button1 = new JButton("Cross Off");
+        setupButton(button1, "crossOff", frame,positionThree());
+
+        frame.setVisible(true);
+        jframe.setVisible(true);
+
+    }
+
+    private void setupJframeCO() {
+        jframeInitilaization();
+
+        int counter = 0;
+        for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
+            Item task = lists.getMasterList().getMasterList().get(i);
+            if (task.getStatus() == false) {
+                counter++;
+                if (counter == 1) {
+                    jtextArea.append(String.format("%d. %-20s", counter, task.getName()));
+                } else {
+                    jtextArea.append(String.format("\n%d. %-20s", counter, task.getName()));
+                }
+            }
+
+        }
+
+        if (counter != 0) {
+            crossOffItem();
+        } else {
+            response.setText("There is nothing to cross off!");
+        }
+
+    }
+
+    private void showAllItems() {
+        jframeInitilaization();
 //        jframe = new JFrame();
 //        jframe.setSize(1500, 400);
 //        jframe.setLayout(gbl);
 //        gbc.insets = new Insets(5,5,5,5);
-//
+
 //        JButton button = new JButton("OK");
 //        setupButton(button, "PrinterOK", jframe, positionFour());
 ////            button.setActionCommand("PrinterOK");
@@ -641,107 +698,21 @@ public class Visuals implements ActionListener {
 ////            jframe.add(button,positionFour());
 //
 //        JTextArea jtextArea = new JTextArea();
-//
-//        int counter = 0;
-//        for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
-//            Item task = lists.getMasterList().getMasterList().get(i);
-//            jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
-//            if (task.getStatus() == false) {
-//                counter++;
-//                jtextArea.append(String.format("%d. %-20s\n", counter, task.getName()));
-//            }
-//        }
-//
-////            gbc.gridx = 1;
-////            gbc.gridy = 2;
-//        jframe.add(jtextArea,positionTwo());
 
+        if (lists.getMasterList().masterListSize() == 0) {
+            jtextArea.append("There is nothing on your list yet");
+        } else {
+            for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
+                Item task = lists.getMasterList().getMasterList().get(i);
+                jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+                //https://stackoverflow.com/questions/29147709/aligning-text-in-jtextarea-in-java
 
+                jtextArea.append(String.format("%d. %-20s %-30s %-20s", i + 1, task.getName(),
+                        task.getStatus() ? "Status: Complete" : "Status: Not Complete", "Type: " + task.getType()));
 
-//            gbc.gridx = 1;
-//            gbc.gridy = 0;
-        label = new JLabel("Please enter number of item you would like to cross off.");
-        label.setFont(new Font("monospaced", Font.PLAIN, 14));
-        frame.add(label, positionZero());
-
-        field = new JTextField(10);
-//            gbc.gridx = 1;
-//            gbc.gridy = 2;
-
-        frame.add(field, positionTwo());
-
-        button1 = new JButton("Cross Off");
-        setupButton(button1, "crossOff", frame,positionThree());
-//            button1.setActionCommand("crossOff");
-//            button1.addActionListener(this);
-////            gbc.gridx = 1;
-////            gbc.gridy = 3;
-//            frame.add(button1, positionThree());
-
-        frame.setVisible(true);
-        jframe.setVisible(true);
-
-    }
-
-    private void setupJframeCO() {
-        jframe = new JFrame();
-        jframe.setSize(1500, 400);
-        jframe.setLayout(gbl);
-        gbc.insets = new Insets(5,5,5,5);
-
-        JButton button = new JButton("OK");
-        setupButton(button, "PrinterOK", jframe, positionFour());
-//            button.setActionCommand("PrinterOK");
-//            button.addActionListener(this);
-//
-////            gbc.gridx = 1;
-////            gbc.gridy = 4;
-//            jframe.add(button,positionFour());
-
-        JTextArea jtextArea = new JTextArea();
-
-        int counter = 0;
-        for (int i = 0; i < lists.getMasterList().masterListSize();i++) {
-            Item task = lists.getMasterList().getMasterList().get(i);
-            jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
-            if (task.getStatus() == false) {
-                counter++;
-                jtextArea.append(String.format("%d. %-20s\n", counter, task.getName()));
-            }
-        }
-
-//            gbc.gridx = 1;
-//            gbc.gridy = 2;
-        jframe.add(jtextArea,positionTwo());
-
-    }
-
-    private void showAllItems() {
-        jframe = new JFrame();
-        jframe.setSize(1500, 400);
-        jframe.setLayout(gbl);
-        gbc.insets = new Insets(5,5,5,5);
-
-        JButton button = new JButton("OK");
-        setupButton(button, "PrinterOK", jframe, positionFour());
-//            button.setActionCommand("PrinterOK");
-//            button.addActionListener(this);
-//
-////            gbc.gridx = 1;
-////            gbc.gridy = 4;
-//            jframe.add(button,positionFour());
-
-        JTextArea jtextArea = new JTextArea();
-        for (int i = 0; i < lists.getMasterList().getMasterList().size(); i++) {
-            Item task = lists.getMasterList().getMasterList().get(i);
-            jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
-            //https://stackoverflow.com/questions/29147709/aligning-text-in-jtextarea-in-java
-
-            jtextArea.append(String.format("%d. %-30s %-30s %-30s", i + 1, task.getName(),
-                    task.getStatus() ? "Status: Complete" : "Status: Not Complete", "Type: " + task.getType()));
-
-            if (i < lists.getMasterList().getMasterList().size() - 1) {
-                jtextArea.append("\n");
+                if (i < lists.getMasterList().getMasterList().size() - 1) {
+                    jtextArea.append("\n");
+                }
             }
         }
 //            gbc.gridx = 1;
@@ -927,6 +898,7 @@ public class Visuals implements ActionListener {
             response.setText("Perfect! Your " + ac.toLowerCase() + " task was added to the list!");
         } catch (TooManyThingsToDoException ex) {
             response.setText("Sorry! You have to many uncompleted tasks! Task not added!");
+            playSound("ce.wav");
         }
 
         gotoMainFrame();
@@ -940,8 +912,10 @@ public class Visuals implements ActionListener {
             lists.crossOff(selection);
         } catch (NothingToCrossOffException ex) {
             response.setText("There's Nothing to Cross Off!");
+            playSound("ce.wav");
         } catch (NoSuchItemExistsException ex) {
             response.setText("Looks like you entered an invalid number!");
+            playSound("ce.wav");
         }
 
         gotoMainFrame();
@@ -954,6 +928,7 @@ public class Visuals implements ActionListener {
             lists.loadData(input);
         } catch (IOException ex) {
             response.setText("Looks like that file does not exist");
+            playSound("ce.wav");
         }
 
         gotoMainFrame();
@@ -970,5 +945,40 @@ public class Visuals implements ActionListener {
 
         gotoMainFrame();
         System.exit(0);
+    }
+
+    private void playSound(String soundName) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./sounds/" + soundName));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.addLineListener(new LineListener() {
+                @Override
+                public void update(LineEvent e) {
+                    if (e.getType() == LineEvent.Type.STOP) {
+                        e.getLine().close();
+                        clipDone.countDown();
+                    }
+                }
+            });
+            clip.start();
+            clipDone.await();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+        }
+    }
+
+    private void jframeInitilaization() {
+        jframe = new JFrame();
+        jframe.setSize(1000, 400);
+        jframe.setLayout(gbl);
+        gbc.insets = new Insets(5,5,5,5);
+
+        JButton button = new JButton("OK");
+        setupButton(button, "PrinterOK", jframe, positionFour());
+        jtextArea = new JTextArea();
+        jtextArea.setFont(new Font("monospaced", Font.PLAIN, 12));
+        jframe.add(jtextArea,positionTwo());
+
     }
 }
