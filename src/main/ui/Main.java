@@ -18,7 +18,7 @@ public class Main {
 //        listInterface.run();
 
 
-       Visuals visuals = new Visuals();
+        Visuals visuals = new Visuals();
 
 
     }
