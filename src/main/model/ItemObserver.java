@@ -1,5 +1,5 @@
-package model;
-
-public interface ItemObserver {
-    void update(Item item);
-}
+//package model;
+//
+//public interface ItemObserver {
+//    void update(Item item);
+//}

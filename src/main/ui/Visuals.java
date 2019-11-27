@@ -863,7 +863,7 @@ public class Visuals implements ActionListener {
 
     private void addTask(String ac) {
         String input = field.getText();
-        String output = "";
+        //String output = "";
 
         int selection = 0;
         if (ac.equals("Personal")) {
