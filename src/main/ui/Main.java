@@ -19,6 +19,7 @@ public class Main {
 
 
         Visuals visuals = new Visuals();
+        visuals.setupMain();
 
 
     }

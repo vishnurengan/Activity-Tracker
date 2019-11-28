@@ -49,8 +49,7 @@ public class Visuals implements ActionListener {
 
     private Lists lists;
 
-    // MODIFIES: this, Item
-    // EFFECTS: instantiates new lists, sets up frame, and runs the program
+    // EFFECTS: instantiates new lists, sets up frame
     public Visuals() {
         lists = new Lists();
         frame = new JFrame("To Do List");
@@ -69,11 +68,12 @@ public class Visuals implements ActionListener {
         gbc.gridy = 6;
         frame.add(response,gbc);
 
-        setupMain();
 
     }
 
-    private void setupMain() {
+    // MODIFIES: this, Item
+    // EFFECTS: sets up main menu with buttons and action listeners
+    public void setupMain() {
 
         label = new JLabel("Please select an option:");
 
@@ -369,7 +369,7 @@ public class Visuals implements ActionListener {
 
         frame.repaint();
 
-        label = new JLabel("Please enter your personal task");
+        label = new JLabel("Please enter your personal task.");
         label.setFont(new Font("monospaced", Font.PLAIN, 14));
         frame.add(label, positionZero());
 
@@ -388,7 +388,7 @@ public class Visuals implements ActionListener {
 
         frame.repaint();
 
-        label = new JLabel("Please enter your school task");
+        label = new JLabel("Please enter your school task.");
         label.setFont(new Font("monospaced", Font.PLAIN, 14));
         frame.add(label, positionZero());
 
@@ -407,7 +407,7 @@ public class Visuals implements ActionListener {
 
         frame.repaint();
 
-        label = new JLabel("Please enter your work task");
+        label = new JLabel("Please enter your work task.");
         label.setFont(new Font("monospaced", Font.PLAIN, 14));
         frame.add(label, positionZero());
 
