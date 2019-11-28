@@ -14,11 +14,11 @@ public class Main {
 //        GetLocation getLocation = new GetLocation();
 //        getLocation.getLocation();
 
-        ListInterface listInterface = new ListInterface();
-        listInterface.run();
+//        ListInterface listInterface = new ListInterface();
+//        listInterface.run();
 
 
-        //Visuals visuals = new Visuals();
+        Visuals visuals = new Visuals();
 
 
     }

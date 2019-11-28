@@ -8,26 +8,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class Lists implements Loadable, Saveable {
 
     private MasterList masterList;
     private CrossedOff crossedOff;
-    //Map<String, Item> listMap;
 
-    // EFFECTS: sets are empty and initializes scanner
+    // EFFECTS: instantiates new MasterList and CrossedOffList
     public Lists() {
         masterList = new MasterList();
         crossedOff = new CrossedOff();
-        //listMap = new HashMap<>();
     }
 
-
-    // EFFECTS: data is loaded from file
+    // MODIFIES: this
+    // EFFECTS: data is loaded from file and added to masterList
     public void loadData(String filename) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get("./data/" + filename));
         for (int i = 0; i < lines.size(); i = i + 3) {
@@ -63,9 +59,12 @@ public class Lists implements Loadable, Saveable {
     }
 
 
-    // REQUIRES: number inputted must be in displayed list
+
     // MODIFIES: this, Item
     // EFFECTS: finds Item to cross off, toggles its status, and copies it to crossedOff list
+    // throws NothingToCrossOffException is there is nothing to cross off
+    // throws NoSuchItemExistsException if user inputs invalid selection
+
     public void crossOff(int number) throws NothingToCrossOffException, NoSuchItemExistsException {
         if (masterList.masterListSize() == crossedOff.crossedOffSize()) {
             throw new NothingToCrossOffException();
@@ -89,44 +88,40 @@ public class Lists implements Loadable, Saveable {
 
     // MODIFIES: this, Item
     // EFFECTS: creates new Item of specified sub class and adds to masterList
+    // throws TooManyThingsToDoException if there are more than 5 uncompleted task
     public void addItem(String item, int selection) throws TooManyThingsToDoException {
         if (selection == 1) {
             Item task = new PersonalItem(item);
-            //listMap.put(item,task);
             addItem(task);
         } else if (selection == 2) {
             Item task = new SchoolItem(item);
-           // listMap.put(item,task);
             addItem(task);
         } else  {
             Item task = new WorkItem(item);
-            //listMap.put(item,task);
             addItem(task);
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: Item is added to masterList.
+    // EFFECTS: Item is added to masterList and message is printed to console.
+    // throws TooManyThingsToDoException if there are more than 5 uncompleted task
     public void addItem(Item task) throws TooManyThingsToDoException {
         if (masterList.masterListSize() - crossedOff.crossedOffSize() >= 5) {
             throw new TooManyThingsToDoException();
         }
 
         this.masterList.getMasterList().add(task);
-        //notify(task);
 
         task.printMessage();
     }
 
-//    public Item getItem(String item) {
-//        Item task = listMap.get(item);
-//        return task;
-//    }
 
+    // EFFECTS: returns masterlist associated with list
     public MasterList getMasterList() {
         return masterList;
     }
 
+    // EFFECTS : returns crossedOff list associated with list
     public CrossedOff getCrossedOff() {
         return crossedOff;
     }

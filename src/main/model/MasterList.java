@@ -5,11 +5,12 @@ import java.util.ArrayList;
 public class MasterList {
     private ArrayList<Item> masterList;
 
-    public MasterList() {
+    // EFFECTS: instantiates new array list
+    MasterList() {
         masterList = new ArrayList<>();
     }
 
-    // EFFECTS: returns masterList
+    // EFFECTS: returns arraylist of items on masterList
     public ArrayList<Item> getMasterList() {
         return masterList;
     }
@@ -36,6 +37,7 @@ public class MasterList {
         return false;
     }
 
+    // EFFECTS: returns the size of the masterList
     public int masterListSize() {
         return masterList.size();
     }

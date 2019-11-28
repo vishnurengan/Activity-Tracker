@@ -5,11 +5,12 @@ import java.util.ArrayList;
 public class CrossedOff {
     private ArrayList<Item> crossedOff;
 
+    // EFFECTS: instantiates new array list
     public CrossedOff() {
         crossedOff = new ArrayList<>();
     }
 
-    // EFFECTS: returns crossedOff List
+    // EFFECTS: returns array list of items on crossedOff list
     public ArrayList<Item> getCrossedOff() {
         return crossedOff;
     }
@@ -25,6 +26,7 @@ public class CrossedOff {
         return false;
     }
 
+    // EFFECTS: return the size of the crossedOff list
     public int crossedOffSize() {
         return crossedOff.size();
     }

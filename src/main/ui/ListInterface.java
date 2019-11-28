@@ -4,13 +4,13 @@ import exceptions.NoSuchItemExistsException;
 import exceptions.NothingToCrossOffException;
 import exceptions.TooManyThingsToDoException;
 import model.*;
-import network.GetLocation;
 
 
 import java.io.IOException;
 import java.util.Scanner;
+
 // Using scanner as provided in the LittleLoggingCalculator
-// Loading and Saving were implemented following provided example in project deliverable file
+// Loading and Saving were implemented following provided example in project deliverable file (P4 - FileReaderWriter)
 
 public class ListInterface {
     private Lists lists;
@@ -18,9 +18,7 @@ public class ListInterface {
 
     // EFFECTS: constructs lists and initializes scanner
     ListInterface() {
-        //ConcreteItemObserver concreteItemObserver = new ConcreteItemObserver();
         lists = new Lists();
-        //lists.addObserver(concreteItemObserver);
         scanner = new Scanner(System.in);
 
     }
@@ -30,7 +28,8 @@ public class ListInterface {
     // If selection is 1, add items to list
     // If selection is 2, removes items from list
     // If selection is 3, displays all items and status
-    // If selection is 4, program quits
+    // If selection is 4, loads data from file
+    // If selection is 5, saves and quits
     public void run() throws IOException {
         while (true) {
             int selection = userSelection();
@@ -50,7 +49,7 @@ public class ListInterface {
         }
     }
 
-    public void runContinue(int selection) throws IOException {
+    private void runContinue(int selection) throws IOException {
         if (selection == 2) {
             try {
                 removeItem();
@@ -69,59 +68,12 @@ public class ListInterface {
         }
     }
 
-    //comment
     private void runContinue2(int selection) throws IOException {
         if (selection == 5) {
             fileNameEntrySD();
             System.exit(0);
         }
-//        else if (selection == 6) {
-//            enterUrgentItem();
-//        } else if (selection == 7) {
-//            removeUrgentItem();
-//        } else if (selection == 8) {
-//            getItemInfo();
-//        }
     }
-
-//    private void getItemInfo() {
-//        System.out.println("Please enter the task name:");
-//        scanner.nextLine();
-//        String itemName = scanner.nextLine();
-//        Item task = lists.getItem(itemName);
-//        System.out.println("Name: " + task.getName());
-//        if (task.getStatus()) {
-//            System.out.println("Status: Complete");
-//        } else {
-//            System.out.println("Status: Not Complete");
-//        }
-//        System.out.println("Type: " + task.getType());
-//
-//    }
-
-//    private void enterUrgentItem() {
-//        System.out.println("Please enter the task name:");
-//        scanner.nextLine();
-//        String urgentTask = scanner.nextLine();
-//        UrgentItem urgentItem = new UrgentItem(urgentTask);
-//        priorityList.addUrgentItem(urgentItem);
-//
-//        System.out.println("Here is your updated Priority List:");
-//        priorityListPrinter();
-//
-//    }
-
-//    private void removeUrgentItem() {
-//        priorityListPrinter();
-//        System.out.println("Please enter the task name:");
-//        scanner.nextLine();
-//        String urgentTask = scanner.nextLine();
-//        UrgentItem urgentItem = new UrgentItem(urgentTask);
-//
-//        priorityList.removeUrgentItem(urgentItem);
-//        System.out.println("Here is your updated Priority List:");
-//        priorityListPrinter();
-//    }
 
     // EFFECTS: user chooses filename
     private void fileNameEntryLD() throws IOException {
@@ -166,14 +118,14 @@ public class ListInterface {
 
     }
 
-    public void useScanner(int selection) throws TooManyThingsToDoException {
+    private void useScanner(int selection) throws TooManyThingsToDoException {
         scanner.nextLine();
         String item = scanner.nextLine();
         lists.addItem(item,selection);
     }
 
     // EFFECTS: returns user selection
-    public int taskSelection() {
+    private int taskSelection() {
         scanner.nextLine();
         System.out.println("What would you like to enter: [1] Personal Task [2] School Task [3] Work Task ?");
         int selection = scanner.nextInt();
@@ -182,8 +134,6 @@ public class ListInterface {
         return selection;
     }
 
-
-    // REQUIRES: selection inputted by user must be on displayed toDoList
     // MODIFIES: this, Item
     // EFFECTS: asks user which item should be crossed off and crosses it off
     private void removeItem() throws NothingToCrossOffException, NoSuchItemExistsException {
@@ -209,7 +159,7 @@ public class ListInterface {
         }
     }
 
-    // EFFECTS: prints out item in crossedOff list
+    // EFFECTS: prints out items in crossedOff list
     private void crossedOffPrinter() {
         System.out.println("The following items were crossed off:");
         for (int i = 0; i < lists.getCrossedOff().crossedOffSize(); i++) {
@@ -225,11 +175,6 @@ public class ListInterface {
         }
     }
 
-//    private void priorityListPrinter() {
-//        for (UrgentItem ui: priorityList.getUrgentItems()) {
-//            System.out.println(ui.getName());
-//        }
-//    }
 
     private void taskPrinter(Item task, int i) {
         System.out.printf("%d. %-20s %-30s %-20s%n", i + 1, task.getName(),
